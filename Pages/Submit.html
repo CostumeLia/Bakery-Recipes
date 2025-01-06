@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Baguette's Bakery Recipes</title>
+        <link rel="stylesheet" href="../styles.css"/>
+    </head>
+
+    <nav id="nav">
+        <ul id="nav">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="All_recipes.html">All Recipes</a></li>
+            <li><a class="active" href="Submit.html">Submit Your Own Recipe</a></li>
+        </ul>
+    </nav>
+
+    <body>
+
+        <header id="Top">
+            <h1>Baguette's Bakery</h1>
+            <h2>Recipes</h2>
+            <img class="img" src="/img/Winter_bakery_lg.png" alt="Image of Baguette's Bakery decorated for Winter" id="bakery"/>
+            <label for="search_bar"></label><textarea id="search_bar" placeholder="Search:" rows="1"></textarea><br>
+        </header>
+
+        <main>
+            <h4>Fill out this form to submit your own recipe!</h4>
+            <form>
+                <label for="recipe_name">Recipe Name: </label><input type="text" id="recipe_name"><br>
+                <label for="your_name">Your Name or Username: </label> <input type="text" id="your_name"><br>
+                <label for="category">Category: </label><select name="category" id="category"><br>
+                    <option value="Appetizer">Appetizer</option>
+                    <option value="Entree">Entrée</option>
+                    <option value="Side">Side</option>
+                    <option value="Dessert">Dessert</option>
+                    <option value="Drink">Drink</option>
+                </select><br>
+                <label for="recipe_description">Recipe Description<br></label><textarea id="recipe_description" rows="4"></textarea><br>
+                <label for="ingredients">Ingredients<br></label><textarea id="ingredients" rows="4" placeholder="Please list each ingredient on it's own line" name="ingredients[ingredient][]"></textarea><br>
+                <label for="directions">Directions<br></label><textarea id="steps" rows="4" placeholder="Please list each direction on it's own line" name ="directions[directions[]]"></textarea><br>
+                <label for="submit_button"></label>
+                <button 
+                    type="submit" 
+                    name="submit"
+                    id="submit_button" 
+                    value="submit"
+                    formmethod="post" 
+                    formaction="hidden_page.html"
+                >Submit</button><br>
+            </form>
+        </main>
+
+        <footer id="footer">
+            <p id="footer">All recipes were originally submitted to Baguette's Bakery Discord! Find Baguette at: <a target="_blank" href=https://www.twitch.tv/baguette_baby>https://www.twitch.tv/baguette_baby</a></p>
+            <p id="footer">&hearts; Webpage created by <a target="_blank" href=https://www.twitch.tv/costumelia>CostumeLia</a> &hearts; </p>
+        </footer>
+    </body>
+
+    <a id="footer_button" href="#top">Back to Top</a>
+
+</html>

@@ -1,0 +1,265 @@
+@font-face {
+    font-family: feelingPassionate;
+    src: url('Fonts/Feeling\ Passionate.otf');
+}
+@font-face {
+    font-family: architectDaughter;
+    src: url('Fonts/ArchitectsDaughter.ttf');
+}
+
+body {
+    background-image: url('img/blue_roses_placeholder.jfif');
+    text-align: center;
+    background-attachment: fixed;
+    margin: 15px auto;
+    background-color: rgb(57, 93, 187);
+    max-width: 100%;
+    display: block;
+    font-size: 1vw;
+}
+
+header {
+    background-color: rgb(57, 93, 187);
+    padding: 15px;
+    border-radius: 20px;
+    margin: 15px auto;
+    color:rgb(216, 230, 255);
+    max-width: 90%;
+    display: block;
+}
+
+
+h1{
+    font-family: feelingPassionate, Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 7em;
+    line-height: 25%;
+    inline-size: 100%;
+    max-width: 90%;
+    font-weight: lighter;
+}
+
+h2 {
+    font-size: 6em;
+    line-height: 25px;
+    font-family: feelingPassionate, Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: lighter;
+}
+
+main {
+    background-color: rgb(57, 93, 187);
+    padding: 15px;
+    border-radius: 20px;
+    margin: 10px auto;
+    display: block;
+    max-width: 90%; 
+    font-family: architectDaughter, Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: lighter;
+}
+
+footer {
+    background-color: rgb(57, 93, 187);
+    padding: 15px;
+    border-radius: 20px;
+    margin: 15px auto;
+    color:rgb(216, 230, 255);
+    max-width: 90%;
+    display: block;
+    font-family: architectDaughter, Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: lighter;
+    font-size: small;
+}
+
+
+div {
+    background-color: rgb(57, 93, 187);
+    margin: 15px auto;
+}
+
+img {
+    max-width: 100%;
+    border: rgb(216, 230, 255) 5px solid; 
+    border-radius: 20px;
+}
+
+h3 {
+    color:rgb(216, 230, 255);
+    font-size: 4em;
+    line-height: 10px;
+    font-family: feelingPassionate, Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: lighter;
+}
+
+h4 {
+    color:rgb(216, 230, 255);
+    font-size: 1.75em;
+    font-weight: lighter;
+}
+
+h5 {
+    font-size: 1em;
+    text-align: center;
+    font-weight: lighter;
+}
+
+p {
+    color: rgb(216, 230, 255);
+    font-weight: lighter;
+}
+
+#all_recipes_list, #favorites {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    color: rgb(216, 230, 255);
+    font-size: 1.75em;
+}
+
+#ingredients, #steps, #recipe_description, #category, #recipe_name, #your_name, #search_bar {
+    background-color: rgb(216, 230, 255);
+    padding: 5px;
+    border-radius: 20px;
+    margin: 10px auto;
+    color:rgb(18, 30, 46);
+    text-align: left;
+    font-family: architectDaughter, Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: lighter;
+    font-size: 1.5em;
+}
+
+#recipe_name, #your_name, #search_bar {
+    border-radius: 10px;
+
+}
+
+#ingredients, #steps, #recipe_description {
+    width: 60%;
+}
+
+#search_bar {
+    width: 60%;
+}
+
+::placeholder, option {
+    color: rgb(18, 30, 46);
+  }
+
+form{
+    color: rgb(216, 230, 255);
+}
+
+#favorites {
+    color: rgb(216, 230, 255);
+}
+
+a:link {
+    color: rgb(216, 230, 255);
+}
+
+a:visited {
+    color:rgb(216, 230, 255);
+}
+
+a:hover {
+    color:rgb(18, 30, 46);
+}
+
+button {
+    border: 5px solid rgb(18, 30, 46);
+    color: rgb(216, 230, 255);
+    background-color: rgb(18, 30, 46);
+    border-radius: 10px;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    font-family: architectDaughter, Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: lighter;
+}
+
+button:hover {
+    border: 5px solid rgb(18, 30, 46);
+    color: rgb(18, 30, 46);
+    background-color: rgb(216, 230, 255);
+}
+
+nav {
+    position: sticky;
+    top: 5px;
+    float: right;
+    margin: 0;
+    margin-right: 5%;
+    max-width: 30%;
+    display: block;
+}
+
+nav ul {
+    border: 5px solid rgb(18, 30, 46);
+    color: rgb(18, 30, 46);
+    background-color: rgb(216, 230, 255);
+    border-radius: 10px;
+    padding: 0px;
+    text-decoration: none;
+    font-size: medium;
+    font-family: architectDaughter, Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: lighter;
+    text-align: center;
+    list-style-type: none;
+    background-clip: padding-box;
+}
+
+nav li {
+    border: 1px solid rgb(18, 30, 46);
+    padding: 5px;
+}
+
+nav a:link, nav a:visited {
+    text-decoration: none;
+    color: rgb(18, 30, 46);
+}
+
+#nav a:hover {
+	background-color: rgb(57, 93, 187);
+	background-clip: padding-box;
+    color: rgb(216, 230, 255);
+    display: block;
+    border-radius: 5px;
+}
+
+#nav .active { 
+	background-color: rgb(18, 30, 46);
+	background-clip: padding-box;
+    color: rgb(216, 230, 255);
+    display: block;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+#footer_button {
+    border: 5px solid rgb(18, 30, 46);
+    color: rgb(18, 30, 46);
+    background-color: rgb(216, 230, 255);
+    border-radius: 10px;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: block;
+    font-size: small;
+    margin: 0;
+    margin-right: 5%;
+    font-family: architectDaughter, Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: lighter;
+    position: sticky;
+    bottom: 5px;
+    float: right;
+}
+
+#footer_button:hover {
+	background-color: rgb(18, 30, 46);
+	background-clip: padding-box;
+    color: rgb(216, 230, 255);
+    display: block;
+    border-radius: 5px;
+    border: 5px solid rgb(216, 230, 255);
+}

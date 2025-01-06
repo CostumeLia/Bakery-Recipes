@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Baguette's Bakery Recipes</title>
+        <link rel="stylesheet" href="../styles.css"/>
+        <script src="sql.js"></script>
+    </head>
+
+    <nav id="nav">
+        <ul id="nav">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="All_recipes.html">All Recipes</a></li>
+            <li><a href="Submit.html">Submit Your Own Recipe</a></li>
+        </ul>
+    </nav>
+
+    <body>
+        <!-- Header text, image, search bar -->
+        <header id="Top">
+            <h1>Baguette's Bakery</h1>
+            <h2>Recipes</h2>
+            <img class="img" src="/img/Winter_bakery_lg.png" alt="Image of Baguette's Bakery decorated for Winter" id="bakery"/>
+            <label for="search_bar"></label><textarea id="search_bar" placeholder="Search:" rows="1"></textarea><br>
+        </header>
+
+        <main>
+        <!-- Recipe Content (populated by JavaScript) -->
+            <div id="intro">
+                <h3>Recipe Name</h3>
+                <h4>Author Username</h4>
+                <p>Category of Food</p>
+                <img src="/img/recipe_placeholder.jfif" alt="Image of Recipe"/>
+                <p id="description">Recipe Description - whatever the original post said?</p>
+            </div>
+
+            <div id="ingredients">
+                <h5>Ingredients</h5>
+                <ul>
+                    <li>ingredient 1</li>
+                    <li>ingredient 2</li>
+                </ul>
+            </div>
+
+            <div id="steps">
+                <h5>Directions/Steps on how to make recipe.</h5>
+                <ol>
+                    <li>Step 1</li>
+                    <li>Step 2</li>
+                </ol>
+            </div>
+        </main>
+
+        <footer id="footer">
+            <p id="footer">All recipes were originally submitted to Baguette's Bakery Discord! Find Baguette at: <a target="_blank" href=https://www.twitch.tv/baguette_baby>https://www.twitch.tv/baguette_baby</a></p>
+            <p id="footer">&hearts; Webpage created by <a target="_blank" href=https://www.twitch.tv/costumelia>CostumeLia</a> &hearts; </p>
+        </footer>
+    </body>
+
+    <a id="footer_button" href="#top">Back to Top</a>
+
+</html>
