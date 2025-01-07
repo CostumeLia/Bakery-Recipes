@@ -114,7 +114,7 @@ p {
     font-size: 1.75em;
 }
 
-#ingredients, #steps, #recipe_description, #category, #imageUrl, #recipe_name, #your_name, #search_bar {
+#ingredients, #directions, #recipe_description, #category, #recipeImage, #recipe_name, #your_name, #search_bar {
     background-color: rgb(216, 230, 255);
     padding: 5px;
     border-radius: 20px;
@@ -126,17 +126,21 @@ p {
     font-size: 1em;
 }
 
-#recipe_name, #your_name, #imageUrl, #search_bar {
+#recipe_name, #your_name, #recipeImage, #search_bar {
     border-radius: 10px;
 
 }
 
-#ingredients, #steps, #recipe_description {
+#ingredients, #directions, #recipe_description {
     width: 60%;
 }
 
-#search_bar, #imageUrl {
+#search_bar, #recipeImage {
     width: 60%;
+}
+
+input::file-selector-button {
+    display: none;
 }
 
 ::placeholder, option {

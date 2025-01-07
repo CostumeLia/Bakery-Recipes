@@ -14,11 +14,11 @@ const sequelize = new Sequelize({
 });
 
 const Recipe = sequelize.define('Recipe', {
-    recipe_name: {
+    title: {
         type: Sequelize.STRING,
         allowNull: false,
     },
-    username: {
+    author: {
         type: Sequelize.STRING,
         allowNull: false,
     },
@@ -34,7 +34,7 @@ const Recipe = sequelize.define('Recipe', {
         type: Sequelize.TEXT,
         allowNull: false,
     },
-    directions: {
+    steps: {
         type: Sequelize.TEXT,
         allowNull: false,
     },
@@ -46,11 +46,10 @@ const Recipe = sequelize.define('Recipe', {
     try {
         await sequelize.authenticate();
         console.log('Connection to the database successful!');
-        await sequelize.sync({ alter: true });
-        console.log('Database and table synced successfully');
-
+        await sequelize.sync();
+         console.log('Database and table synced successfully');
         const allRecipes = await Recipe.findAll();
-        console.log('Retrieved Recipes:', allRecipes.map(recipe => recipe.toJSON()));
+         console.log('Retrieved Recipes:', allRecipes.map(recipe => recipe.toJSON()));
     } catch (error) {
         console.error('Error connecting to or using the database: ', error);
     }
@@ -73,12 +72,12 @@ app.get('/recipes', async (req, res) => {
     try {
         const recipes = await Recipe.findAll();
         res.status(200).json(recipes.map(recipe => ({
-            title: recipe.recipe_name,
-            author: recipe.username,
+            title: recipe.title,
+            author: recipe.author,
             category: recipe.category,
             description: recipe.description,
             ingredients: recipe.ingredients,
-            instructions: recipe.directions,
+            instructions: recipe.steps,
             imageUrl: recipe.imageUrl
         })));
     } catch (error) {
@@ -89,29 +88,30 @@ app.get('/recipes', async (req, res) => {
 
 app.post('/recipes', upload.single('recipeImage'), async (req, res) => {
     try {
-        console.log('Received POST request to /recipes', req.body);
+         console.log('Received POST request to /recipes', req.body); //This line is added
+        console.log('req.body:', req.body)
         const { title, author, category, description, ingredients, steps } = req.body;
 
         const imageUrl = req.file ? `/uploads/${req.file.filename}` : null;
-       
+
 
         const newRecipe = await Recipe.create({
-            recipe_name: title,
-            username: author,
+            title: title,
+            author: author,
             category: category,
             description: description,
             ingredients: ingredients,
-            directions: steps,
+            steps: steps,
             imageUrl: imageUrl
         });
-       console.log("Created Recipe", newRecipe.toJSON())
+        console.log("Created Recipe", newRecipe.toJSON())
        res.status(201).json({ message: 'Recipe created successfully', recipe: {
-        title: newRecipe.recipe_name,
-        author: newRecipe.username,
+        title: newRecipe.title,
+        author: newRecipe.author,
         category: newRecipe.category,
         description: newRecipe.description,
         ingredients: newRecipe.ingredients,
-        instructions: newRecipe.directions,
+        instructions: newRecipe.steps,
         imageUrl: newRecipe.imageUrl
     } });
     } catch (error) {
