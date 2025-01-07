@@ -114,7 +114,7 @@ p {
     font-size: 1.75em;
 }
 
-#ingredients, #steps, #recipe_description, #category, #recipe_name, #your_name, #search_bar {
+#ingredients, #steps, #recipe_description, #category, #imageUrl, #recipe_name, #your_name, #search_bar {
     background-color: rgb(216, 230, 255);
     padding: 5px;
     border-radius: 20px;
@@ -123,10 +123,10 @@ p {
     text-align: left;
     font-family: architectDaughter, Verdana, Geneva, Tahoma, sans-serif;
     font-weight: lighter;
-    font-size: 1.5em;
+    font-size: 1em;
 }
 
-#recipe_name, #your_name, #search_bar {
+#recipe_name, #your_name, #imageUrl, #search_bar {
     border-radius: 10px;
 
 }
@@ -135,7 +135,7 @@ p {
     width: 60%;
 }
 
-#search_bar {
+#search_bar, #imageUrl {
     width: 60%;
 }
 
