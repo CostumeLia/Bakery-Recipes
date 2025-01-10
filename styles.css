@@ -1,29 +1,62 @@
+/* Font Declarations - Keep these at the top */
 @font-face {
     font-family: feelingPassionate;
-    src: url('Fonts/Feeling\ Passionate.otf');
+    src: url('Fonts/Feeling Passionate.otf');
 }
 @font-face {
     font-family: architectDaughter;
     src: url('Fonts/ArchitectsDaughter.ttf');
 }
 
+/* 
+    ----------------------
+        General Styles
+    ----------------------
+*/
+
+/* Root Styles for setting the base color*/
+:root {
+    --primary-background-color: rgb(57, 93, 187);
+    --primary-text-color: rgb(216, 230, 255);
+    --secondary-text-color: rgb(18, 30, 46);
+  }
+
 body {
+    /* Use variables instead of hardcoding colors */
     background-image: url('img/blue_roses_placeholder.jfif');
     text-align: center;
     background-attachment: fixed;
     margin: 15px auto;
-    background-color: rgb(57, 93, 187);
+    background-color: var(--primary-background-color);
     max-width: 100%;
     display: block;
     font-size: 1vw;
 }
 
-header {
-    background-color: rgb(57, 93, 187);
+/* Reusable styles for main sections */
+.section {
+    background-color: var(--primary-background-color);
     padding: 15px;
     border-radius: 20px;
     margin: 15px auto;
-    color:rgb(216, 230, 255);
+    max-width: 90%;
+    display: block;
+}
+
+/*  ----------------------
+        Header
+    ----------------------
+*/
+header {
+    /* Applies all the styles from the reusable section class*/
+    /* Specific styles for the header*/
+    color: var(--primary-text-color);
+}
+header, main, footer {
+    background-color: var(--primary-background-color);
+    padding: 15px;
+    border-radius: 20px;
+    margin: 15px auto;
     max-width: 90%;
     display: block;
 }
@@ -45,44 +78,43 @@ h2 {
     font-weight: lighter;
 }
 
-main {
-    background-color: rgb(57, 93, 187);
-    padding: 15px;
+img {
+    max-width: 100%;
+    border: var(--primary-text-color) 5px solid; 
     border-radius: 20px;
-    margin: 10px auto;
-    display: block;
-    max-width: 90%; 
-    font-family: architectDaughter, Verdana, Geneva, Tahoma, sans-serif;
-    font-weight: lighter;
 }
 
+/*  ----------------------
+        Main
+    ----------------------
+*/
+main {
+    /* Specific styles for the main*/
+    font-family: architectDaughter, Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: lighter;
+    margin-top: 10px; /* override section's margin, move it slightly up */
+}
+
+
+/*  ----------------------
+        Footer
+    ----------------------
+*/
 footer {
-    background-color: rgb(57, 93, 187);
-    padding: 15px;
-    border-radius: 20px;
-    margin: 15px auto;
-    color:rgb(216, 230, 255);
-    max-width: 90%;
-    display: block;
+    /* Specific styles for the footer*/
+    color: var(--primary-text-color);
     font-family: architectDaughter, Verdana, Geneva, Tahoma, sans-serif;
     font-weight: lighter;
     font-size: small;
 }
 
-
-div {
-    background-color: rgb(57, 93, 187);
-    margin: 15px auto;
-}
-
-img {
-    max-width: 100%;
-    border: rgb(216, 230, 255) 5px solid; 
-    border-radius: 20px;
-}
+/*  ----------------------
+        Typography
+    ----------------------
+*/
 
 h3 {
-    color:rgb(216, 230, 255);
+    color: var(--primary-text-color);
     font-size: 4em;
     line-height: 10px;
     font-family: feelingPassionate, Verdana, Geneva, Tahoma, sans-serif;
@@ -90,7 +122,7 @@ h3 {
 }
 
 h4 {
-    color:rgb(216, 230, 255);
+    color: var(--primary-text-color);
     font-size: 1.75em;
     font-weight: lighter;
 }
@@ -102,24 +134,33 @@ h5 {
 }
 
 p {
-    color: rgb(216, 230, 255);
+    color: var(--primary-text-color);
     font-weight: lighter;
 }
 
+/*  ----------------------
+        Lists
+    ----------------------
+*/
 #all_recipes_list, #favorites {
     list-style-type: none;
     padding: 0;
     margin: 0;
-    color: rgb(216, 230, 255);
+    color: var(--primary-text-color);
     font-size: 1.75em;
 }
 
+/*  ----------------------
+        Form Elements
+    ----------------------
+*/
+
 #ingredients, #directions, #recipe_description, #category, #recipeImage, #recipe_name, #your_name, #search_bar {
-    background-color: rgb(216, 230, 255);
+    background-color: var(--primary-text-color);
     padding: 5px;
     border-radius: 20px;
     margin: 10px auto;
-    color:rgb(18, 30, 46);
+    color: var(--secondary-text-color);
     text-align: left;
     font-family: architectDaughter, Verdana, Geneva, Tahoma, sans-serif;
     font-weight: lighter;
@@ -128,7 +169,6 @@ p {
 
 #recipe_name, #your_name, #recipeImage, #search_bar {
     border-radius: 10px;
-
 }
 
 #ingredients, #directions, #recipe_description {
@@ -144,50 +184,61 @@ input::file-selector-button {
 }
 
 ::placeholder, option {
-    color: rgb(18, 30, 46);
+    color: var(--secondary-text-color);
   }
 
 form{
-    color: rgb(216, 230, 255);
+    color: var(--primary-text-color);
 }
 
-#favorites {
-    color: rgb(216, 230, 255);
-}
+/*  ----------------------
+        Links
+    ----------------------
+*/
 
 a:link {
-    color: rgb(216, 230, 255);
+    color: var(--primary-text-color);
 }
 
 a:visited {
-    color:rgb(216, 230, 255);
+    color: var(--primary-text-color);
 }
 
 a:hover {
-    color:rgb(18, 30, 46);
+    color: var(--secondary-text-color);
 }
 
-button {
-    border: 5px solid rgb(18, 30, 46);
-    color: rgb(216, 230, 255);
-    background-color: rgb(18, 30, 46);
+/*  ----------------------
+        Buttons
+    ----------------------
+*/
+
+button, #footer_button {
+    /* Apply common styles here*/
+    border: 5px solid var(--secondary-text-color);
+    color: var(--primary-text-color);
+    background-color: var(--secondary-text-color);
     border-radius: 10px;
     padding: 15px 32px;
     text-align: center;
     text-decoration: none;
-    display: inline-block;
     font-size: 16px;
     margin: 4px 2px;
     font-family: architectDaughter, Verdana, Geneva, Tahoma, sans-serif;
     font-weight: lighter;
 }
 
-button:hover {
-    border: 5px solid rgb(18, 30, 46);
-    color: rgb(18, 30, 46);
-    background-color: rgb(216, 230, 255);
+button:hover, #footer_button:hover {
+    /* Apply common hover styles here */
+    border: 5px solid var(--secondary-text-color);
+    color: var(--secondary-text-color);
+    background-color: var(--primary-text-color);
 }
 
+/*  ----------------------
+        Navigation
+    ----------------------
+*/
 nav {
     position: sticky;
     top: 5px;
@@ -199,9 +250,9 @@ nav {
 }
 
 nav ul {
-    border: 5px solid rgb(18, 30, 46);
-    color: rgb(18, 30, 46);
-    background-color: rgb(216, 230, 255);
+    border: 5px solid var(--secondary-text-color);
+    color: var(--secondary-text-color);
+    background-color: var(--primary-text-color);
     border-radius: 10px;
     padding: 0px;
     text-decoration: none;
@@ -214,56 +265,46 @@ nav ul {
 }
 
 nav li {
-    border: 1px solid rgb(18, 30, 46);
+    border: 1px solid var(--secondary-text-color);
     padding: 5px;
 }
 
 nav a:link, nav a:visited {
     text-decoration: none;
-    color: rgb(18, 30, 46);
+    color: var(--secondary-text-color);
 }
 
 #nav a:hover {
-	background-color: rgb(57, 93, 187);
-	background-clip: padding-box;
-    color: rgb(216, 230, 255);
+    background-color: var(--primary-background-color);
+    background-clip: padding-box;
+    color: var(--primary-text-color);
     display: block;
     border-radius: 5px;
 }
 
 #nav .active { 
-	background-color: rgb(18, 30, 46);
-	background-clip: padding-box;
-    color: rgb(216, 230, 255);
+    background-color: var(--secondary-text-color);
+    background-clip: padding-box;
+    color: var(--primary-text-color);
     display: block;
     border-radius: 5px;
     padding: 5px;
 }
 
+
+/*  ----------------------
+      Footer Button
+    ----------------------
+*/
+
+
 #footer_button {
-    border: 5px solid rgb(18, 30, 46);
-    color: rgb(18, 30, 46);
-    background-color: rgb(216, 230, 255);
-    border-radius: 10px;
-    padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
+     /* Specific styles for footer button that override button*/
     display: block;
     font-size: small;
     margin: 0;
     margin-right: 5%;
-    font-family: architectDaughter, Verdana, Geneva, Tahoma, sans-serif;
-    font-weight: lighter;
     position: sticky;
     bottom: 5px;
     float: right;
-}
-
-#footer_button:hover {
-	background-color: rgb(18, 30, 46);
-	background-clip: padding-box;
-    color: rgb(216, 230, 255);
-    display: block;
-    border-radius: 5px;
-    border: 5px solid rgb(216, 230, 255);
 }

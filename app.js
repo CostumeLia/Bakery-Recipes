@@ -7,7 +7,18 @@ const app = express();
 const port = 3000;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use('/uploads', express.static('uploads'));
+app.get('/Submit.html', (req, res) => {
+    res.sendFile(path.join(__dirname, 'Pages', 'Submit.html'));
+  });
+  
+app.get('/All_recipes.html', (req, res) => {
+    res.sendFile(path.join(__dirname, 'Pages', 'All_recipes.html'));
+});
 
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'Pages', 'index.html'))
+})
 const sequelize = new Sequelize({
     dialect: 'sqlite',
     storage: 'Recipes_table.db'
@@ -47,9 +58,10 @@ const Recipe = sequelize.define('Recipe', {
         await sequelize.authenticate();
         console.log('Connection to the database successful!');
         await sequelize.sync();
-         console.log('Database and table synced successfully');
+        console.log('Database and table synced successfully');
+
         const allRecipes = await Recipe.findAll();
-         console.log('Retrieved Recipes:', allRecipes.map(recipe => recipe.toJSON()));
+        console.log('Retrieved Recipes:', allRecipes.map(recipe => recipe.toJSON()));
     } catch (error) {
         console.error('Error connecting to or using the database: ', error);
     }
@@ -88,8 +100,7 @@ app.get('/recipes', async (req, res) => {
 
 app.post('/recipes', upload.single('recipeImage'), async (req, res) => {
     try {
-         console.log('Received POST request to /recipes', req.body); //This line is added
-        console.log('req.body:', req.body)
+        console.log('Received POST request to /recipes', req.body);
         const { title, author, category, description, ingredients, steps } = req.body;
 
         const imageUrl = req.file ? `/uploads/${req.file.filename}` : null;
@@ -105,22 +116,21 @@ app.post('/recipes', upload.single('recipeImage'), async (req, res) => {
             imageUrl: imageUrl
         });
         console.log("Created Recipe", newRecipe.toJSON())
-       res.status(201).json({ message: 'Recipe created successfully', recipe: {
-        title: newRecipe.title,
-        author: newRecipe.author,
-        category: newRecipe.category,
-        description: newRecipe.description,
-        ingredients: newRecipe.ingredients,
-        instructions: newRecipe.steps,
-        imageUrl: newRecipe.imageUrl
-    } });
+        res.status(201).json({ message: 'Recipe created successfully', recipe: {
+            title: newRecipe.title,
+            author: newRecipe.author,
+            category: newRecipe.category,
+            description: newRecipe.description,
+            ingredients: newRecipe.ingredients,
+            instructions: newRecipe.steps,
+            imageUrl: newRecipe.imageUrl
+        } });
     } catch (error) {
         console.error('Error creating recipe: ', error);
         res.status(500).json({ message: 'Error creating recipe', error: error.message, details: error.toString()});
     }
 });
 
-app.use('/uploads', express.static('uploads'));
 
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
