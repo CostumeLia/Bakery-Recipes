@@ -88,10 +88,10 @@ document.addEventListener('DOMContentLoaded', () => {
             description: recipe.description,
             ingredients: recipe.ingredients,
             steps: recipe.instructions,
-            imageUrl: recipe.imageUrl
+             imageUrl: recipe.imageUrl
         });
 
-        window.location.href = `submit.html?${params.toString()}`;
+        window.open(`submit.html?${params.toString()}`, '_blank');
     };
 
     const publishRecipe = async (recipeId) => {

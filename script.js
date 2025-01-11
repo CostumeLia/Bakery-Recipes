@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return decodeURIComponent(results[2].replace(/\+/g, ' '));
     };
 
-    const populateFormFromUrl = () => {
+     const populateFormFromUrl = () => {
         const params = ['id', 'title', 'author', 'category', 'description', 'ingredients', 'steps', 'imageUrl'];
         const values = params.reduce((acc, param) => {
             acc[param] = getParameterByName(param);
@@ -40,11 +40,14 @@ document.addEventListener('DOMContentLoaded', () => {
             imageContainer.insertBefore(imagePreview, document.getElementById('recipeImage'));
         }
 
-        ['title', 'author', 'category', 'description', 'ingredients', 'steps'].forEach(key => {
-            if (values[key]) {
-                document.getElementById(`recipe_${key.replace('recipe','')}`).value = values[key];
-            }
-        });
+       
+       document.getElementById('recipe_name').value = values.title || '';
+       document.getElementById('your_name').value = values.author || '';
+       document.getElementById('category').value = values.category || '';
+       document.getElementById('recipe_description').value = values.description || '';
+       document.getElementById('ingredients').value = values.ingredients || '';
+       document.getElementById('directions').value = values.steps || '';
+       
 
         if (values.id) {
             recipeForm.dataset.id = values.id;
