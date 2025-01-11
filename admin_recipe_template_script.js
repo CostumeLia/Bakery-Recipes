@@ -9,11 +9,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const description = document.getElementById('description')
     const ingredientList = document.getElementById('ingredient_list');
     const directionList = document.getElementById('direction_list');
+
     const publishButton = document.createElement('button');
     publishButton.textContent = "Publish";
+    const editButton = document.createElement('button'); // Create the edit button.
+    editButton.textContent = "Edit";
     const rejectButton = document.createElement('button');
-    rejectButton.textContent = "Reject"
-
+    rejectButton.textContent = "Reject";
 
     const fetchAndDisplayRecipe = async () => {
         try {
@@ -41,37 +43,54 @@ document.addEventListener('DOMContentLoaded', () => {
                 ingredientList.appendChild(listItem);
             });
 
-             const directions = recipe.instructions.split('\n').filter(step => step.trim() !== '');
-             directions.forEach(step => {
+            const directions = recipe.instructions.split('\n').filter(step => step.trim() !== '');
+            directions.forEach(step => {
                 const listItem = document.createElement('li');
-                 listItem.textContent = step.trim();
+                listItem.textContent = step.trim();
                 directionList.appendChild(listItem);
             });
+
             publishButton.addEventListener('click', () => publishRecipe(recipe.id)); // Add listener to handle publishing.
+            editButton.addEventListener('click', () => editRecipe(recipe)); // Added listener for editing
             rejectButton.addEventListener('click', () => rejectRecipe(recipe.id)); // Add listener to handle publishing.
 
+            const main = document.querySelector('main'); // Append the button to your page.
+            main.appendChild(publishButton);
+            main.appendChild(editButton); // Add the edit button
+            main.appendChild(rejectButton);
 
-             const main = document.querySelector('main'); // Append the button to your page.
-             main.appendChild(publishButton);
-             main.appendChild(rejectButton);
 
         } catch (error) {
             console.error('Error fetching recipe:', error);
             alert(`Error fetching recipe: ${error.message}`);
         }
     };
+      const editRecipe = (recipe) => {
+        // Construct the URL with the recipe data as URL parameters.
+          const params = new URLSearchParams({
+            id: recipe.id, // Include the recipe ID to identify it during edits.
+            title: recipe.title,
+            author: recipe.author,
+            category: recipe.category,
+            description: recipe.description,
+            ingredients: recipe.ingredients,
+            steps: recipe.instructions,
+            imageUrl: recipe.imageUrl // Use absolute path if necessary, check to make sure this works.
+        });
 
-     const publishRecipe = async (recipeId) => {
+       window.location.href = `submit.html?${params.toString()}`; // Redirect to the submit page.
+    };
+    const publishRecipe = async (recipeId) => {
         try {
             const response = await fetch(`http://localhost:3000/admin/publish/${recipeId}`, {
                 method: 'POST'
             });
-             if (!response.ok) {
-                  const errorMessage = await response.json();
-                    throw new Error(errorMessage.message);
-               }
-              alert('Recipe Published!');
-              window.close();
+            if (!response.ok) {
+                const errorMessage = await response.json();
+                throw new Error(errorMessage.message);
+            }
+            alert('Recipe Published!');
+            window.close();
 
         } catch (error) {
             console.error('Error publishing recipe:', error);

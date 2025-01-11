@@ -76,6 +76,7 @@ h2 {
     line-height: 25px;
     font-family: feelingPassionate, Verdana, Geneva, Tahoma, sans-serif;
     font-weight: lighter;
+    color: var(--primary-text-color);
 }
 
 img {
@@ -118,9 +119,9 @@ h3 {
     color: var(--primary-text-color);
     font-size: 4em;
     line-height: 10px;
-    font-family: feelingPassionate, Verdana, Geneva, Tahoma, sans-serif;
     font-weight: lighter;
 }
+
 
 h4 {
     color: var(--primary-text-color);
