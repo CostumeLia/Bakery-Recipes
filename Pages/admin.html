@@ -1,68 +1,76 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <title>Baguette's Bakery Admin</title>
-        <link rel="stylesheet" href="../styles.css"/>
-           <!-- Updated script tag to load from the server -->
-          <script src="/admin_script.js"></script>
-    </head>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Baguette's Bakery Admin</title>
+    <link rel="stylesheet" href="../styles.css"/>
+    <script src="/admin_script.js"></script>
+</head>
 
+<body>
     <nav id="nav">
-        <ul id="nav">
+        <ul>
             <li><a href="index.html">Home</a></li>
             <li><a href="All_recipes.html">All Recipes</a></li>
             <li><a href="Submit.html">Submit Your Own Recipe</a></li>
         </ul>
     </nav>
 
-    <body>
-        <header id="Top">
-            <h1>Baguette's Bakery</h1>
-            <h2>Admin</h2>
-            <img class="img" src="/img/Winter_bakery_lg.png" alt="Image of Baguette's Bakery decorated for Winter" id="bakery"/>
-            <label for="search_bar"></label><textarea id="search_bar" placeholder="Search" rows="1"></textarea><br>
-        </header>
+    <header>
+        <h1>Baguette's Bakery</h1>
+        <h2>Admin</h2>
+        <img class="img" src="/img/Winter_bakery_lg.png" alt="Image of Baguette's Bakery decorated for Winter" />
+        <label for="search_bar"></label><textarea id="search_bar" placeholder="Search" rows="1"></textarea>
+    </header>
 
-        <main>
-           <div id="login-container">
-             <h2>Admin Login</h2>
-             <form id="loginForm">
-             <label for="username">Username: </label><input type="text" id = "username" name = "username"><br>
-             <label for="password">Password: </label><input type="password" id = "password" name = "password">
-             <button id="loginButton" name = "loginButton">Login</button>
+    <main>
+        <div id="login-container">
+            <h2>Admin Login</h2>
+            <form id="loginForm">
+                <label for="username">Username: </label>
+                <input type="text" id="username" name="username"><br>
+                <label for="password">Password: </label>
+                <input type="password" id="password" name="password">
+                <button id="loginButton" name="loginButton">Login</button>
             </form>
         </div>
 
         <div id="recipe-container" style="display:none">
-              <h4>Click on a recipe to open it in a new tab, then use the Publish button to make it live!</h4>
+             <h4>Click on a recipe to open it in a new tab, then use the Publish button to make it live!</h4>
+            <section>
               <h2>Appetizers</h2>
-              <ul id="appetizer_recipes_list"></ul>
-             
-              <h2>Entrées</h2>
+             <ul id="appetizer_recipes_list"></ul>
+             </section>
+           <section>
+               <h2>Entrées</h2>
               <ul id="entree_recipes_list"></ul>
-    
-              <h2>Sides</h2>
-              <ul id="side_recipes_list"></ul>
-    
-              <h2>Desserts</h2>
-              <ul id="dessert_recipes_list"></ul>
-            
-               <h2>Drinks</h2>
-              <ul id="drink_recipes_list"></ul>
-             
-              <h2>Snacks</h2>
-              <ul id="snack_recipes_list"></ul>
-            </div>
-            <div id="error-container" style="display:none">
-              </div>
-        </main>
+             </section>
+            <section>
+                <h2>Sides</h2>
+                <ul id="side_recipes_list"></ul>
+             </section>
+            <section>
+               <h2>Desserts</h2>
+                <ul id="dessert_recipes_list"></ul>
+            </section>
+              <section>
+                  <h2>Drinks</h2>
+                    <ul id="drink_recipes_list"></ul>
+              </section>
+           <section>
+                <h2>Snacks</h2>
+               <ul id="snack_recipes_list"></ul>
+             </section>
+        </div>
+        <div id="error-container" style="display:none"></div>
+    </main>
 
-        <footer id="footer">
-            <p id="footer">All recipes were originally submitted to Baguette's Bakery Discord! Find Baguette at: <a target="_blank" href=https://www.twitch.tv/baguette_baby>https://www.twitch.tv/baguette_baby</a></p>
-            <p id="footer">♥ Webpage created by <a target="_blank" href=https://www.twitch.tv/costumelia>CostumeLia</a> ♥ </p>
-        </footer>
-    </body>
+    <footer>
+        <p>All recipes were originally submitted to Baguette's Bakery Discord! Find Baguette at: <a target="_blank" href="https://www.twitch.tv/baguette_baby">https://www.twitch.tv/baguette_baby</a></p>
+        <p>♥ Webpage created by <a target="_blank" href="https://www.twitch.tv/costumelia">CostumeLia</a> ♥ </p>
+    </footer>
 
-    <a id="footer_button" href="#top">Back to Top</a>
-
+    <a id="footer_button" href="#Top">Back to Top</a>
+</body>
 </html>

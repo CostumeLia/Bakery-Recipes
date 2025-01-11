@@ -1,43 +1,41 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <title>Baguette's Bakery Recipes</title>
-        <link rel="stylesheet" href="../styles.css"/>
-    </head>
-
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Baguette's Bakery Recipes</title>
+    <link rel="stylesheet" href="../styles.css"/>
+</head>
+<body>
     <nav id="nav">
-        <ul id="nav">
+        <ul>
             <li><a class="active" href="index.html">Home</a></li>
             <li><a href="All_recipes.html">All Recipes</a></li>
             <li><a href="Submit.html">Submit Your Own Recipe</a></li>
         </ul>
     </nav>
 
-    <body>
-        <header id="Top"> 
-            <h1>Baguette's Bakery</h1>
-            <h2>Recipes</h2>
-            <img class="img" src="/img/Winter_bakery_lg.png" alt="Image of Baguette's Bakery decorated for Winter" id="bakery"/>
-            <label for="search_bar"></label><textarea id="search_bar" placeholder="Search:" rows="1"></textarea><br>
-        </header>
+    <header>
+        <h1>Baguette's Bakery</h1>
+        <h2>Recipes</h2>
+       <img class="img" src="/img/Winter_bakery_lg.png" alt="Image of Baguette's Bakery decorated for Winter" />
+         <label for="search_bar"></label><textarea id="search_bar" placeholder="Search:" rows="1"></textarea>
+    </header>
 
-        <main>
+    <main>
+        <h3>Baguette's Favorites</h3>
+        <ul id="favorites">
+            <li><a href="">Appetizer</a></li>
+            <li><a href="">Entrée</a></li>
+            <li><a href="">Dessert</a></li>
+            <li><a href="">Drink</a></li>
+        </ul>
+    </main>
 
-            <h3>Baguette's Favorites</h3>
-            <ul id="favorites">
-                <li><a href=""></a>Appetizer</li>
-                <li><a href=""></a>Entrée</li>
-                <li><a href=""></a>Dessert</li>
-                <li><a href=""></a>Drink</li>
-            </ul>
-        </main>
-
-        <footer id="footer">
-            <p id="footer">All recipes were originally submitted to Baguette's Bakery Discord! Find Baguette at: <a target="_blank" href=https://www.twitch.tv/baguette_baby>https://www.twitch.tv/baguette_baby</a></p>
-            <p id="footer">&hearts; Webpage created by <a target="_blank" href=https://www.twitch.tv/costumelia>CostumeLia</a> &hearts; </p>
-        </footer>
-    </body>
-
-    <a id="footer_button" href="#top">Back to Top</a>
-
+    <footer>
+        <p>All recipes were originally submitted to Baguette's Bakery Discord! Find Baguette at: <a target="_blank" href="https://www.twitch.tv/baguette_baby">https://www.twitch.tv/baguette_baby</a></p>
+        <p>♥ Webpage created by <a target="_blank" href="https://www.twitch.tv/costumelia">CostumeLia</a> ♥ </p>
+    </footer>
+    <a href="#Top">Back to Top</a>
+</body>
 </html>

@@ -1,57 +1,53 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <title>Baguette's Bakery Recipes</title>
-        <link rel="stylesheet" href="../styles.css"/>
-    </head>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Baguette's Bakery Recipes</title>
+    <link rel="stylesheet" href="../styles.css"/>
+</head>
 
+<body>
     <nav id="nav">
-        <ul id="nav">
+        <ul>
             <li><a href="index.html">Home</a></li>
             <li><a href="All_recipes.html">All Recipes</a></li>
             <li><a href="Submit.html">Submit Your Own Recipe</a></li>
         </ul>
     </nav>
 
-    <body>
-        <!-- Header text, image, search bar -->
-        <header id="Top">
-            <h1>Baguette's Bakery</h1>
-            <h2>Recipes</h2>
-            <img class="img" src="/img/Winter_bakery_lg.png" alt="Image of Baguette's Bakery decorated for Winter" id="bakery"/>
-            <label for="search_bar"></label><textarea id="search_bar" placeholder="Search:" rows="1"></textarea><br>
-        </header>
+    <header>
+        <h1>Baguette's Bakery</h1>
+        <h2>Recipes</h2>
+        <img class="img" src="/img/Winter_bakery_lg.png" alt="Image of Baguette's Bakery decorated for Winter"/>
+        <label for="search_bar"></label><textarea id="search_bar" placeholder="Search:" rows="1"></textarea>
+    </header>
 
-        <main>
-        <!-- Recipe Content (populated by JavaScript) -->
-            <div id="intro">
-                <h3 id = "recipe_title"></h3>
-                <h4 id = "author_name"></h4>
-                <p id = "category_name"></p>
-                <img id = "recipe_image" src="/img/recipe_placeholder.jfif" alt="Image of Recipe"/>
-                <p id="description"></p>
-            </div>
+    <main>
+        <section id="intro">
+            <h3 id="recipe_title"></h3>
+            <h4 id="author_name"></h4>
+            <p id="category_name"></p>
+            <img id="recipe_image" src="/img/recipe_placeholder.jfif" alt="Image of Recipe"/>
+            <p id="description"></p>
+        </section>
 
-            <div id="ingredients" class="ingredients_list">
-                <h5>Ingredients</h5>
-                <ul id = "ingredient_list" class="ingredients_list">
-                </ul>
-            </div>
+       <section id="ingredients" >
+            <h5>Ingredients</h5>
+            <ul id="ingredient_list"></ul>
+        </section>
+        
+         <section id="directions">
+            <h5>Directions</h5>
+            <ol id="direction_list"></ol>
+        </section>
+    </main>
 
-            <div id="directions">
-                <h5>Directions</h5>
-                <ol id = "direction_list">
-                </ol>
-            </div>
-        </main>
-
-        <footer id="footer">
-            <p id="footer">All recipes were originally submitted to Baguette's Bakery Discord! Find Baguette at: <a target="_blank" href=https://www.twitch.tv/baguette_baby>https://www.twitch.tv/baguette_baby</a></p>
-            <p id="footer">♥ Webpage created by <a target="_blank" href=https://www.twitch.tv/costumelia>CostumeLia</a> ♥ </p>
-        </footer>
-       <script src="/recipe_template_script.js"></script>
-    </body>
-
-    <a id="footer_button" href="#top">Back to Top</a>
-
+    <footer>
+        <p>All recipes were originally submitted to Baguette's Bakery Discord! Find Baguette at: <a target="_blank" href="https://www.twitch.tv/baguette_baby">https://www.twitch.tv/baguette_baby</a></p>
+        <p>♥ Webpage created by <a target="_blank" href="https://www.twitch.tv/costumelia">CostumeLia</a> ♥ </p>
+    </footer>
+    <script src="/recipe_template_script.js"></script>
+     <a id="footer_button" href="#Top">Back to Top</a>
+</body>
 </html>
