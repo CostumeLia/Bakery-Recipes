@@ -94,13 +94,9 @@ main {
     font-weight: lighter;
     margin-top: 10px; /* override section's margin, move it slightly up */
 }
-
 main ul {
     text-decoration: none;
-    list-style-type: none !important;
 }
-
-
 /*  ----------------------
         Footer
     ----------------------
@@ -147,8 +143,15 @@ p {
         Lists
     ----------------------
 */
-#all_recipes_list, #favorites {
+ul {
     list-style-type: none;
+}
+
+.ingredients_list ul {
+  list-style-type: disc;
+  }
+  
+#all_recipes_list, #favorites {
     padding: 0;
     margin: 0;
     color: var(--primary-text-color);
@@ -184,9 +187,6 @@ p {
     width: 60%;
 }
 
-.ingredients_list ul {
-    list-style-type: disc;
-  }
 
 input::file-selector-button {
     display: none;
