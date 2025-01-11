@@ -95,6 +95,11 @@ main {
     margin-top: 10px; /* override section's margin, move it slightly up */
 }
 
+main ul {
+    text-decoration: none;
+    list-style-type: none !important;
+}
+
 
 /*  ----------------------
         Footer
@@ -178,6 +183,10 @@ p {
 #search_bar, #recipeImage {
     width: 60%;
 }
+
+.ingredients_list ul {
+    list-style-type: disc;
+  }
 
 input::file-selector-button {
     display: none;

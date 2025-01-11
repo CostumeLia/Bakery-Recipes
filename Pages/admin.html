@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Baguette's Bakery Admin</title>
+        <link rel="stylesheet" href="../styles.css"/>
+           <!-- Updated script tag to load from the server -->
+          <script src="/admin_script.js"></script>
+    </head>
+
+    <nav id="nav">
+        <ul id="nav">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="All_recipes.html">All Recipes</a></li>
+            <li><a href="Submit.html">Submit Your Own Recipe</a></li>
+        </ul>
+    </nav>
+
+    <body>
+        <header id="Top">
+            <h1>Baguette's Bakery</h1>
+            <h2>Admin</h2>
+            <img class="img" src="/img/Winter_bakery_lg.png" alt="Image of Baguette's Bakery decorated for Winter" id="bakery"/>
+            <label for="search_bar"></label><textarea id="search_bar" placeholder="Search" rows="1"></textarea><br>
+        </header>
+
+        <main>
+           <div id="login-container">
+             <h2>Admin Login</h2>
+             <form id="loginForm">
+             <label for="username">Username: </label><input type="text" id = "username" name = "username"><br>
+             <label for="password">Password: </label><input type="password" id = "password" name = "password">
+             <button id="loginButton" name = "loginButton">Login</button>
+            </form>
+        </div>
+
+        <div id="recipe-container" style="display:none">
+              <h4>Click on a recipe to open it in a new tab, then use the Publish button to make it live!</h4>
+              <h3>Appetizers</h3>
+              <ul id="appetizer_recipes_list"></ul>
+             
+              <h3>Entrées</h3>
+              <ul id="entree_recipes_list"></ul>
+    
+              <h3>Sides</h3>
+              <ul id="side_recipes_list"></ul>
+    
+              <h3>Desserts</h3>
+              <ul id="dessert_recipes_list"></ul>
+            
+               <h3>Drinks</h3>
+              <ul id="drink_recipes_list"></ul>
+             
+              <h3>Snacks</h3>
+              <ul id="snack_recipes_list"></ul>
+            </div>
+            <div id="error-container" style="display:none">
+              </div>
+        </main>
+
+        <footer id="footer">
+            <p id="footer">All recipes were originally submitted to Baguette's Bakery Discord! Find Baguette at: <a target="_blank" href=https://www.twitch.tv/baguette_baby>https://www.twitch.tv/baguette_baby</a></p>
+            <p id="footer">♥ Webpage created by <a target="_blank" href=https://www.twitch.tv/costumelia>CostumeLia</a> ♥ </p>
+        </footer>
+    </body>
+
+    <a id="footer_button" href="#top">Back to Top</a>
+
+</html>

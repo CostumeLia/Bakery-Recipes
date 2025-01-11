@@ -12,14 +12,14 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             
             try {
-                const response = await fetch('http://localhost:3000/', {
+                const response = await fetch('http://localhost:3000/recipes', {
                     method: 'POST',
                     body: formData,
                 });
 
                 if (!response.ok) {
-                    const errorMessage = await response.json();
-                    throw new Error(errorMessage.message);
+                   const responseData = await response.json()
+                    throw new Error(responseData.message);
                 }
 
                 const responseData = await response.json();
@@ -28,7 +28,8 @@ document.addEventListener('DOMContentLoaded', () => {
               
                 displayRecipe(recipe, recipeContainer);
                 fetchAndDisplayRecipes();
-                window.location.href = 'All_recipes.html';
+                // Moved the redirect here, after successful fetch.
+                 window.location.href = 'All_recipes.html';
 
             } catch (error) {
                 console.error('Error creating recipe:', error);
@@ -37,7 +38,11 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    function displayRecipe(recipe, container) {
+     function displayRecipe(recipe, container) {
+         if (!recipe) {
+            console.error("Recipe data is undefined in displayRecipe");
+            return;
+        }
         const recipeDiv = document.createElement('div');
         recipeDiv.classList.add('recipe');
         recipeDiv.innerHTML = `
@@ -51,13 +56,13 @@ document.addEventListener('DOMContentLoaded', () => {
            <div id="ingredients">
                 <h5>Ingredients</h5>
                 <ul>
-                    ${recipe.ingredients.split('\n').map(ingredient => `<li>${ingredient}</li>`).join('')}
+                    ${recipe.ingredients ? recipe.ingredients.split('\n').map(ingredient => `<li>${ingredient}</li>`).join('') : ''}
                 </ul>
             </div>
             <div id="steps">
                 <h5>Directions</h5>
                 <ol>
-                    ${recipe.steps.split('\n').map(step => `<li>${step}</li>`).join('')}
+                    ${recipe.instructions ? recipe.instructions.split('\n').map(step => `<li>${step}</li>`).join('') : ''}
                 </ol>
             </div>
         `;
@@ -74,7 +79,7 @@ document.addEventListener('DOMContentLoaded', () => {
         'Snack': document.getElementById('snack_recipes_list'),
     };
 
-    const fetchAndDisplayRecipes = async () => {
+   const fetchAndDisplayRecipes = async () => {
         try {
             const response = await fetch('http://localhost:3000/recipes');
 
@@ -91,12 +96,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (categoryList) {
                     const listItem = document.createElement('li');
                     const link = document.createElement('a');
-                    link.href = `#${recipe.title.replace(/ /g, '_')}`;
+                    link.href = `recipe_template.html?title=${encodeURIComponent(recipe.title)}`;
+                     link.target = "_blank"
                     link.textContent = recipe.title;
                     listItem.appendChild(link);
                     categoryList.appendChild(listItem);
-                    addRecipeToPage(recipe);
-                }
+                 }
             });
 
         } catch (error) {
@@ -106,10 +111,14 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const addRecipeToPage = (recipe) => {
+        if (!recipe) {
+            console.error("Recipe data is undefined in addRecipeToPage");
+            return;
+        }
         const recipeContainer = document.querySelector('main');
         const recipeDiv = document.createElement('div');
         recipeDiv.classList.add('recipe');
-        recipeDiv.id = `${recipe.title.replace(/ /g, '_')}`;
+         recipeDiv.id = `${recipe.title.replace(/ /g, '_')}`;
         recipeDiv.innerHTML = `
              <div id="intro">
                   <h3>${recipe.title}</h3>
@@ -121,15 +130,15 @@ document.addEventListener('DOMContentLoaded', () => {
     
               <div id="ingredients">
                   <h5>Ingredients</h5>
-                  <ul>
-                      ${recipe.ingredients.split('\n').map(ingredient => `<li>${ingredient}</li>`).join('')}
+                   <ul>
+                     ${recipe.ingredients ? recipe.ingredients.split('\n').map(ingredient => `<li>${ingredient}</li>`).join('') : ''}
                   </ul>
               </div>
     
               <div id="steps">
                   <h5>Directions</h5>
                   <ol>
-                       ${recipe.steps.split('\n').map(step => `<li>${step}</li>`).join('')}
+                       ${recipe.instructions ? recipe.instructions.split('\n').map(step => `<li>${step}</li>`).join('') : ''}
                   </ol>
               </div>
           `;
