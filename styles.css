@@ -2,31 +2,31 @@
 @font-face {
     font-family: feelingPassionate;
     src: url('Fonts/Feeling Passionate.otf');
-   }
-   @font-face {
+}
+@font-face {
     font-family: architectDaughter;
     src: url('Fonts/ArchitectsDaughter.ttf');
-   }
-   
-   /* 
+}
+
+/* 
     ----------------------
         Root Styles and Variables
     ----------------------
-   */
-   :root {
+*/
+:root {
     --primary-background-color: rgb(57, 93, 187);
     --primary-text-color: rgb(216, 230, 255);
     --secondary-text-color: rgb(18, 30, 46);
     --font-architect: architectDaughter, Verdana, Geneva, Tahoma, sans-serif;
     --font-passionate: feelingPassionate, Verdana, Geneva, Tahoma, sans-serif;
-   }
-   
-   /* 
+}
+
+/* 
     ----------------------
         General Styles
     ----------------------
-   */
-   body {
+*/
+body {
     background-image: url('img/blue_roses_placeholder.jfif');
     text-align: center;
     background-attachment: fixed;
@@ -35,129 +35,129 @@
     max-width: 100%;
     display: block;
     font-size: 1vw;
-   }
-   
-   
-   /* Reusable section styles*/
-   header, main, footer {
+}
+
+
+/* Reusable section styles*/
+header, main, footer {
     background-color: var(--primary-background-color);
     padding: 15px;
     border-radius: 20px;
     margin: 15px auto;
     max-width: 90%;
     display: block;
-   }
-   
-   /*  ----------------------
+}
+
+/*  ----------------------
         Header Styles
     ----------------------
-   */
-   
-   header {
+*/
+
+header {
     color: var(--primary-text-color);
-   }
-   
-   h1{
+}
+
+h1{
     font-family: var(--font-passionate);
     font-size: 7em;
     line-height: 25%;
     inline-size: 100%;
     max-width: 90%;
     font-weight: lighter;
-   }
-   
-   h2 {
+}
+
+h2 {
     font-size: 6em;
     line-height: 25px;
     font-family: var(--font-passionate);
     font-weight: lighter;
     color: var(--primary-text-color);
-   }
-   
-   img {
+}
+
+img {
     max-width: 100%;
     border: var(--primary-text-color) 5px solid; 
     border-radius: 20px;
-   }
-   
-   /*  ----------------------
+}
+
+/*  ----------------------
         Main Styles
     ----------------------
-   */
-   main {
+*/
+main {
     font-family: var(--font-architect);
     font-weight: lighter;
     margin-top: 10px;
-   }
-   main ul {
+}
+main ul {
     text-decoration: none;
-   }
-   /*  ----------------------
+}
+/*  ----------------------
         Footer Styles
     ----------------------
-   */
-   footer {
+*/
+footer {
     color: var(--primary-text-color);
     font-family: var(--font-architect);
     font-weight: lighter;
     font-size: small;
-   }
-   
-   /*  ----------------------
+}
+
+/*  ----------------------
         Typography Styles
     ----------------------
-   */
-   
-   h3 {
+*/
+
+h3 {
     color: var(--primary-text-color);
     font-size: 4em;
     line-height: 10px;
     font-weight: lighter;
-   }
-   
-   
-   h4 {
+}
+
+
+h4 {
     color: var(--primary-text-color);
     font-size: 1.75em;
     font-weight: lighter;
-   }
-   
-   h5 {
+}
+
+h5 {
     font-size: 1em;
     text-align: center;
     font-weight: lighter;
-   }
-   
-   p {
+}
+
+p {
     color: var(--primary-text-color);
     font-weight: lighter;
-   }
-   
-   /*  ----------------------
+}
+
+/*  ----------------------
         List Styles
     ----------------------
-   */
-   ul {
+*/
+ul {
     list-style-type: none;
-   }
-   
-   .ingredients_list ul {
-   list-style-type: disc;
-   }
-   
-   #all_recipes_list, #favorites {
+}
+
+.ingredients_list ul {
+  list-style-type: disc;
+  }
+  
+#all_recipes_list, #favorites {
     padding: 0;
     margin: 0;
     color: var(--primary-text-color);
     font-size: 1.75em;
-   }
-   
-   /*  ----------------------
+}
+
+/*  ----------------------
         Form Element Styles
     ----------------------
-   */
-   
-   #ingredients, #directions, #recipe_description, #category, #recipeImage, #recipe_name, #your_name, #search_bar {
+*/
+
+#ingredients, #directions, #recipe_description, #category, #recipeImage, #recipe_name, #your_name, #search_bar {
     background-color: var(--primary-text-color);
     padding: 5px;
     border-radius: 20px;
@@ -167,50 +167,50 @@
     font-family: var(--font-architect);
     font-weight: lighter;
     font-size: 1em;
-   }
-   
-   #recipe_name, #your_name, #recipeImage, #search_bar {
+}
+
+#recipe_name, #your_name, #recipeImage, #search_bar {
     border-radius: 10px;
-   }
-   
-   #ingredients, #directions, #recipe_description {
+}
+
+#ingredients, #directions, #recipe_description {
     width: 60%;
-   }
-   
-   #search_bar, #recipeImage {
+}
+
+#search_bar, #recipeImage {
     width: 60%;
-   }
-   
-   input::file-selector-button {
+}
+
+input::file-selector-button {
     display: none;
-   }
-   
-   ::placeholder, option {
+}
+
+::placeholder, option {
     color: var(--secondary-text-color);
-   }
-   
-   form{
+  }
+
+form{
     color: var(--primary-text-color);
-   }
-   
-   /*  ----------------------
+}
+
+/*  ----------------------
         Link Styles
     ----------------------
-   */
-   a:link, a:visited {
+*/
+a:link, a:visited {
     color: var(--primary-text-color);
-   }
-   
-   a:hover {
+}
+
+a:hover {
     color: var(--secondary-text-color);
-   }
-   
-   /*  ----------------------
+}
+
+/*  ----------------------
         Button Styles
     ----------------------
-   */
-   
-   button, #footer_button {
+*/
+
+button, #footer_button {
     border: 5px solid var(--secondary-text-color);
     color: var(--primary-text-color);
     background-color: var(--secondary-text-color);
@@ -222,20 +222,20 @@
     margin: 4px 2px;
     font-family: var(--font-architect);
     font-weight: lighter;
-   }
-   
-   
-   button:hover, #footer_button:hover {
+}
+
+
+button:hover, #footer_button:hover {
    border: 5px solid var(--secondary-text-color);
     color: var(--secondary-text-color);
     background-color: var(--primary-text-color);
-   }
-   
-   /*  ----------------------
+}
+
+/*  ----------------------
         Navigation Styles
     ----------------------
-   */
-   nav {
+*/
+nav {
     position: sticky;
     top: 5px;
     float: right;
@@ -243,9 +243,9 @@
     margin-right: 5%;
     max-width: 30%;
     display: block;
-   }
-   
-   nav ul {
+}
+
+nav ul {
     border: 5px solid var(--secondary-text-color);
     color: var(--secondary-text-color);
     background-color: var(--primary-text-color);
@@ -258,43 +258,49 @@
     text-align: center;
     list-style-type: none;
     background-clip: padding-box;
-   }
-   
-   nav li {
+}
+
+nav li {
     border: 1px solid var(--secondary-text-color);
     padding: 5px;
-   }
-   
-   nav a:link, nav a:visited {
+}
+
+nav a:link, nav a:visited {
     text-decoration: none;
     color: var(--secondary-text-color);
-   }
-   
-   nav a:hover {
+}
+
+nav a:hover {
     background-color: var(--primary-background-color);
     background-clip: padding-box;
     color: var(--primary-text-color);
     display: block;
     border-radius: 5px;
-   }
-   
-   nav .active { 
+}
+
+nav a.active { 
     background-color: var(--secondary-text-color);
     background-clip: padding-box;
     color: var(--primary-text-color);
     display: block;
     border-radius: 5px;
     padding: 5px;
-   }
-   
-   
-   /*  ----------------------
+}
+nav a.active:hover {
+     background-color: var(--primary-background-color);
+    background-clip: padding-box;
+    color: var(--primary-text-color);
+    display: block;
+    border-radius: 5px;
+}
+
+/*  ----------------------
       Footer Button Styles
     ----------------------
-   */
-   
-   
-   #footer_button {
+*/
+
+
+#footer_button {
     display: block;
     font-size: small;
     margin: 0;
@@ -302,4 +308,4 @@
     position: sticky;
     bottom: 5px;
     float: right;
-   }
+}
