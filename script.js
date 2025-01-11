@@ -11,97 +11,82 @@ document.addEventListener('DOMContentLoaded', () => {
         'Snack': document.getElementById('snack_recipes_list'),
     };
 
-    let allRecipes = []; // Store all fetched recipes
+    let allRecipes = [];
 
-     // Function to get URL parameters (from https://www.sitepoint.com/get-url-parameters-with-javascript/)
-      const getParameterByName = (name, url = window.location.href) => {
-          name = name.replace(/[\[\]]/g, '\\$&');
-          const regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
-              results = regex.exec(url);
-          if (!results) return null;
-          if (!results[2]) return '';
-          return decodeURIComponent(results[2].replace(/\+/g, ' '));
-      }
+    // Helper function to get URL parameters
+    const getParameterByName = (name, url = window.location.href) => {
+        name = name.replace(/[\[\]]/g, '\\$&');
+        const regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)');
+        const results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return '';
+        return decodeURIComponent(results[2].replace(/\+/g, ' '));
+    };
 
-      const populateFormFromUrl = () => {
-          const id = getParameterByName('id');
-          const title = getParameterByName('title');
-          const author = getParameterByName('author');
-          const category = getParameterByName('category');
-          const description = getParameterByName('description');
-          const ingredients = getParameterByName('ingredients');
-          const steps = getParameterByName('steps');
-          let imageUrl = getParameterByName('imageUrl'); // This has to be a url, not a file.
-           
-           const imagePreview = document.createElement('img');
-           imagePreview.id = 'imagePreview'
-           imagePreview.style.maxWidth = '200px'
-           const imageContainer = document.getElementById('recipeImage').parentNode; // Get the parent of the file upload.
-           
+    const populateFormFromUrl = () => {
+        const params = ['id', 'title', 'author', 'category', 'description', 'ingredients', 'steps', 'imageUrl'];
+        const values = params.reduce((acc, param) => {
+            acc[param] = getParameterByName(param);
+            return acc;
+        }, {});
 
-           if(imageUrl) {
-               imagePreview.src = imageUrl
-                imageContainer.insertBefore(imagePreview, document.getElementById('recipeImage')) // Insert before file upload field.
-           }
+        const imagePreview = document.createElement('img');
+        imagePreview.id = 'imagePreview';
+        imagePreview.style.maxWidth = '200px';
+        const imageContainer = document.getElementById('recipeImage').parentNode;
 
-
-          if (title) document.getElementById('recipe_name').value = title;
-          if (author) document.getElementById('your_name').value = author;
-          if (category) document.getElementById('category').value = category;
-          if (description) document.getElementById('recipe_description').value = description;
-          if (ingredients) document.getElementById('ingredients').value = ingredients;
-          if (steps) document.getElementById('directions').value = steps;
-          //Store the ID in a data attribute so we can retrieve it later.
-          if(id) {
-           recipeForm.dataset.id = id
+        if (values.imageUrl) {
+            imagePreview.src = values.imageUrl;
+            imageContainer.insertBefore(imagePreview, document.getElementById('recipeImage'));
         }
-          console.log("Form Populated")
-      };
-    
-        // Function to display a preview of the image before submission
-       const displayImagePreview = (event) => {
-           const file = event.target.files[0];
-           if (file) {
-               const reader = new FileReader();
-               reader.onload = (e) => {
-                   let imagePreview = document.getElementById('imagePreview')
-                    if (imagePreview){
-                        imagePreview.src = e.target.result;
-                        console.log("Image Updated")
-                   }
-                   else{
+
+        ['title', 'author', 'category', 'description', 'ingredients', 'steps'].forEach(key => {
+            if (values[key]) {
+                document.getElementById(`recipe_${key.replace('recipe','')}`).value = values[key];
+            }
+        });
+
+        if (values.id) {
+            recipeForm.dataset.id = values.id;
+        }
+    };
+
+    const displayImagePreview = (event) => {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                let imagePreview = document.getElementById('imagePreview');
+                if (imagePreview) {
+                    imagePreview.src = e.target.result;
+                } else {
                     imagePreview = document.createElement('img');
-                   imagePreview.id = 'imagePreview'
-                   imagePreview.style.maxWidth = '200px'
-                       imagePreview.src = e.target.result;
-                     const imageContainer = document.getElementById('recipeImage').parentNode
-                    imageContainer.insertBefore(imagePreview, document.getElementById('recipeImage')) // Insert before file upload field.
-                        console.log("Image Added")
-                    }
-               };
-                reader.readAsDataURL(file);
-          }
-        };
-
-        const imageInput = document.getElementById('recipeImage');
-        if(imageInput) {
-            imageInput.addEventListener('change', displayImagePreview);
+                    imagePreview.id = 'imagePreview';
+                    imagePreview.style.maxWidth = '200px';
+                    imagePreview.src = e.target.result;
+                    const imageContainer = document.getElementById('recipeImage').parentNode;
+                    imageContainer.insertBefore(imagePreview, document.getElementById('recipeImage'));
+                }
+            };
+            reader.readAsDataURL(file);
         }
+    };
 
+    const imageInput = document.getElementById('recipeImage');
+    if (imageInput) {
+        imageInput.addEventListener('change', displayImagePreview);
+    }
 
     if (recipeForm) {
-        populateFormFromUrl(); // Populate form when loaded.
+        populateFormFromUrl();
 
         recipeForm.addEventListener('submit', async (event) => {
             event.preventDefault();
             const formData = new FormData(recipeForm);
             const recipeId = recipeForm.dataset.id;
-            
+
             if (recipeId) {
-                 formData.append('id', recipeId)
-             }
-            for (let [key, value] of formData.entries()) {
-                console.log(key, value); //Log form data before sending
+                formData.append('id', recipeId);
             }
 
             try {
@@ -111,23 +96,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
 
                 if (!response.ok) {
-                   const responseData = await response.json()
+                    const responseData = await response.json();
                     throw new Error(responseData.message);
                 }
 
                 const responseData = await response.json();
-                console.log("Response data:", responseData)
-                const recipe = responseData.recipe
-              
+                const recipe = responseData.recipe;
                 displayRecipe(recipe, recipeContainer);
                 fetchAndDisplayRecipes();
-                // Moved the redirect here, after successful fetch.
-                if(recipeId) {
-                   window.location.href = 'admin.html';
-                }
-                else {
-                   window.location.href = 'All_recipes.html';
-                }
+                window.location.href = recipeId ? 'admin.html' : 'All_recipes.html';
 
             } catch (error) {
                 console.error('Error creating recipe:', error);
@@ -135,8 +112,8 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
-    
-     function displayRecipe(recipe, container) {
+
+    function displayRecipe(recipe, container) {
         if (!recipe) {
             console.error("Recipe data is undefined in displayRecipe");
             return;
@@ -167,26 +144,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
         container.appendChild(recipeDiv);
     }
-    function convertNumbersToSpan(text) {
-       if (!text) {
+
+     function convertNumbersToSpan(text) {
+        if (!text) {
            return text;
        }
-       
         const tempDiv = document.createElement('div');
         tempDiv.innerHTML = text;
     
         const walker = document.createTreeWalker(tempDiv, NodeFilter.SHOW_TEXT, null, false);
     
         let node;
-        while (node = walker.nextNode()) {
-           let newHTML = node.textContent.replace(/(\d+)/g, '<span>$1</span>')
-           node.parentElement.innerHTML = newHTML
-       }
+         while (node = walker.nextNode()) {
+            let newHTML = node.textContent.replace(/(\d+)/g, '<span>$1</span>')
+            node.parentElement.innerHTML = newHTML
+        }
        return tempDiv.innerHTML;
     }
-   
-
-
+    
     const fetchAndDisplayRecipes = async () => {
         try {
             const response = await fetch('http://localhost:3000/recipes');
@@ -195,11 +170,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 const errorMessage = await response.json();
                 throw new Error(errorMessage.message);
             }
-             
-            allRecipes = await response.json();
-           
 
-            displayRecipes(allRecipes)
+            allRecipes = await response.json();
+            displayRecipes(allRecipes);
 
         } catch (error) {
             console.error('Error fetching recipes:', error);
@@ -207,53 +180,47 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-   const displayRecipes = (recipes) => {
-    // Clear existing lists
+    const displayRecipes = (recipes) => {
         for (const key in categoryLists) {
-            if (categoryLists.hasOwnProperty(key) && categoryLists[key]) { //check if the categoryList exists
-             categoryLists[key].innerHTML = '';
+            if (categoryLists.hasOwnProperty(key) && categoryLists[key]) {
+                categoryLists[key].innerHTML = '';
             }
         }
-        
+
         recipes.forEach(recipe => {
-        const categoryList = categoryLists[recipe.category];
+            const categoryList = categoryLists[recipe.category];
             if (categoryList) {
                 const listItem = document.createElement('li');
                 const link = document.createElement('a');
                 link.href = `recipe_template.html?title=${encodeURIComponent(recipe.title)}`;
-                    link.target = "_blank"
-                 link.innerHTML = convertNumbersToSpan(recipe.title); //use innerHTML
+                link.target = "_blank";
+                link.innerHTML = convertNumbersToSpan(recipe.title);
                 listItem.appendChild(link);
                 categoryList.appendChild(listItem);
             }
         });
-    }
+    };
 
-     const filterRecipes = (searchTerm) => {
+    const filterRecipes = (searchTerm) => {
         if (!searchTerm) {
-            displayRecipes(allRecipes); // Show all if search is empty
+            displayRecipes(allRecipes);
             return;
         }
         const lowerSearchTerm = searchTerm.toLowerCase();
 
-        const filtered = allRecipes.filter(recipe => {
-                return (
-                    recipe.title.toLowerCase().includes(lowerSearchTerm) ||
-                    recipe.author.toLowerCase().includes(lowerSearchTerm) ||
-                    recipe.description.toLowerCase().includes(lowerSearchTerm) ||
-                    recipe.ingredients.toLowerCase().includes(lowerSearchTerm)
-                    )
+        const filtered = allRecipes.filter(recipe =>
+                Object.values(recipe).some(value => typeof value === 'string' && value.toLowerCase().includes(lowerSearchTerm))
+            );
+         displayRecipes(filtered);
+    };
+
+    if (searchBar) {
+        searchBar.addEventListener('input', (event) => {
+            filterRecipes(event.target.value);
         });
-        displayRecipes(filtered);
-     };
+    }
 
-      if (searchBar){
-       searchBar.addEventListener('input', (event) => {
-           filterRecipes(event.target.value);
-       });
-     }
-
-   const addRecipeToPage = (recipe) => {
+    const addRecipeToPage = (recipe) => {
         if (!recipe) {
             console.error("Recipe data is undefined in addRecipeToPage");
             return;
@@ -261,7 +228,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const recipeContainer = document.querySelector('main');
         const recipeDiv = document.createElement('div');
         recipeDiv.classList.add('recipe');
-         recipeDiv.id = `${recipe.title.replace(/ /g, '_')}`;
+        recipeDiv.id = `${recipe.title.replace(/ /g, '_')}`;
         recipeDiv.innerHTML = `
              <div id="intro">
                   <h3>${convertNumbersToSpan(recipe.title)}</h3>
@@ -285,10 +252,11 @@ document.addEventListener('DOMContentLoaded', () => {
                   </ol>
               </div>
           `;
-    
-           recipeContainer.appendChild(recipeDiv);
-        };
-         if (document.getElementById('appetizer_recipes_list') || document.getElementById('entree_recipes_list') || document.getElementById('side_recipes_list') || document.getElementById('dessert_recipes_list') || document.getElementById('drink_recipes_list') || document.getElementById('snack_recipes_list')) {
-             fetchAndDisplayRecipes();
-          }
+
+        recipeContainer.appendChild(recipeDiv);
+    };
+
+    if (document.getElementById('appetizer_recipes_list') || document.getElementById('entree_recipes_list') || document.getElementById('side_recipes_list') || document.getElementById('dessert_recipes_list') || document.getElementById('drink_recipes_list') || document.getElementById('snack_recipes_list')) {
+        fetchAndDisplayRecipes();
+    }
 });

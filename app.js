@@ -10,24 +10,16 @@ const port = 3000;
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));  // Serve uploaded files from 'uploads' directory (this is important!)
-app.use(express.static(path.join(__dirname, 'Pages'))); // Serve your static pages
-  
-app.get('/Submit.html', (req, res) => {
-    res.sendFile(path.join(__dirname, 'Pages', 'Submit.html'));
-});
-  
-app.get('/All_recipes.html', (req, res) => {
-    res.sendFile(path.join(__dirname, 'Pages', 'All_recipes.html'));
-});
+app.use('/uploads', express.static(path.join(__dirname, 'uploads'))); 
+app.use(express.static(path.join(__dirname, 'Pages')));
 
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'Pages', 'index.html'))
-})
-
-app.get('/admin.html', (req, res) => {
-    res.sendFile(path.join(__dirname, 'Pages', 'admin.html'))
-})
+// Serve static HTML files
+const pages = ['Submit.html', 'All_recipes.html', 'index.html', 'admin.html'];
+pages.forEach(page => {
+    app.get(`/${page}`, (req, res) => {
+        res.sendFile(path.join(__dirname, 'Pages', page));
+    });
+});
 
 const sequelize = new Sequelize({
     dialect: 'sqlite',
@@ -51,7 +43,7 @@ const Recipe = sequelize.define('Recipe', {
         type: Sequelize.STRING,
         allowNull: true,
     },
-     description: {
+    description: {
         type: Sequelize.TEXT,
         allowNull: false,
     },
@@ -63,9 +55,9 @@ const Recipe = sequelize.define('Recipe', {
         type: Sequelize.TEXT,
         allowNull: false,
     },
-     published: {
+    published: {
         type: Sequelize.BOOLEAN,
-        defaultValue: false, // New column: Recipes are unpublished by default
+        defaultValue: false,
     },
 }, {
     tableName: 'Recipes'
@@ -77,9 +69,6 @@ const Recipe = sequelize.define('Recipe', {
         console.log('Connection to the database successful!');
         await sequelize.sync({ alter: true });
         console.log('Database and table synced successfully');
-
-        const allRecipes = await Recipe.findAll();
-        console.log('Retrieved Recipes:', allRecipes.map(recipe => recipe.toJSON()));
     } catch (error) {
         console.error('Error connecting to or using the database: ', error);
     }
@@ -115,27 +104,22 @@ app.get('/recipes', async (req, res) => {
     }
 });
 
-//admin login authentication route
 app.post('/login', async (req, res) => {
     const { username, password } = req.body;
-    console.log("Request body", req.body)
-    // Hardcoded credentials (not for production)
     const adminUsername = 'admin';
-    const adminPassword = 'password'; // In production, you would hash this.
-        
+    const adminPassword = 'password';
+
     if (username === adminUsername && password === adminPassword) {
-        res.status(200).json({ success: true, message: 'Login successful'});
-    }
-    else {
+        res.status(200).json({ success: true, message: 'Login successful' });
+    } else {
         res.status(401).json({ success: false, message: 'Login Failed' });
     }
-})
+});
 
-//Admin route to get recipes that are not published.
 app.get('/admin/recipes', async (req, res) => {
     try {
         const recipes = await Recipe.findAll({ where: { published: false } });
-         res.status(200).json(recipes.map(recipe => ({
+        res.status(200).json(recipes.map(recipe => ({
             id: recipe.id,
             title: recipe.title,
             author: recipe.author,
@@ -151,33 +135,31 @@ app.get('/admin/recipes', async (req, res) => {
     }
 });
 
-
 app.post('/recipes', upload.single('recipeImage'), async (req, res) => {
     try {
-        console.log('Received POST request to /recipes', req.body);
         const { id, title, author, category, description, ingredients, steps } = req.body;
         const imageUrl = req.file ? `/uploads/${req.file.filename}` : null;
 
-        if(id){
+        if (id) {
             const recipe = await Recipe.findByPk(id);
-            if(!recipe) {
+            if (!recipe) {
                 return res.status(404).json({ success: false, message: 'Recipe not found' });
             }
-           recipe.title = title;
+            recipe.title = title;
             recipe.author = author;
             recipe.category = category;
             recipe.description = description;
             recipe.ingredients = ingredients;
             recipe.steps = steps;
-             if(imageUrl) {
-                  recipe.imageUrl = imageUrl
-             }
+            if (imageUrl) {
+                recipe.imageUrl = imageUrl;
+            }
             await recipe.save();
-             res.status(200).json({
-                 success: true,
-                 message: 'Recipe updated successfully',
-                 recipe: {
-                  title: recipe.title,
+            res.status(200).json({
+                success: true,
+                message: 'Recipe updated successfully',
+                recipe: {
+                    title: recipe.title,
                     author: recipe.author,
                     category: recipe.category,
                     description: recipe.description,
@@ -185,47 +167,44 @@ app.post('/recipes', upload.single('recipeImage'), async (req, res) => {
                     instructions: recipe.steps,
                     imageUrl: recipe.imageUrl
                 }
-              });
-         }
-       else {
-           const newRecipe = await Recipe.create({
-                title: title,
-                author: author,
-                category: category,
-                description: description,
-                ingredients: ingredients,
-                steps: steps,
-                imageUrl: imageUrl
-           });
-             console.log("Created Recipe", newRecipe.toJSON())
-                res.status(201).json( {
-                    success: true,
-                   message: 'Recipe created successfully', recipe: {
-                        title: newRecipe.title,
-                        author: newRecipe.author,
-                        category: newRecipe.category,
-                        description: newRecipe.description,
-                        ingredients: newRecipe.ingredients,
-                         instructions: newRecipe.steps,
-                         imageUrl: newRecipe.imageUrl
-                   }
-             });
-         }
-    }
-     catch (error) {
-        console.error('Error creating recipe: ', error);
-        res.status(500).json({ success: false, message: 'Error creating recipe', error: error.message, details: error.toString()});
+            });
+        } else {
+            const newRecipe = await Recipe.create({
+                title,
+                author,
+                category,
+                description,
+                ingredients,
+                steps,
+                imageUrl
+            });
+            res.status(201).json({
+                success: true,
+                message: 'Recipe created successfully',
+                recipe: {
+                    title: newRecipe.title,
+                    author: newRecipe.author,
+                    category: newRecipe.category,
+                    description: newRecipe.description,
+                    ingredients: newRecipe.ingredients,
+                    instructions: newRecipe.steps,
+                    imageUrl: newRecipe.imageUrl
+                }
+            });
+        }
+    } catch (error) {
+        console.error('Error creating or updating recipe: ', error);
+        res.status(500).json({ success: false, message: 'Error creating or updating recipe', error: error.message });
     }
 });
 
-
 app.post('/admin/publish/:id', async (req, res) => {
-   try{
+    try {
         const recipeId = req.params.id;
-       const recipe = await Recipe.findByPk(recipeId);
+        const recipe = await Recipe.findByPk(recipeId);
 
-       if (!recipe) {
-          return res.status(404).json({ success: false, message: 'Recipe not found' });
+        if (!recipe) {
+            return res.status(404).json({ success: false, message: 'Recipe not found' });
         }
 
         recipe.published = true;
@@ -234,11 +213,10 @@ app.post('/admin/publish/:id', async (req, res) => {
         res.status(200).json({ success: true, message: 'Recipe published successfully' });
     } catch (error) {
         console.error('Error publishing recipe:', error);
-       res.status(500).json({ success: false, message: 'Error publishing recipe', error: error.message });
-   }
+        res.status(500).json({ success: false, message: 'Error publishing recipe', error: error.message });
+    }
 });
 
-//Admin route to delete a recipe.
 app.delete('/admin/recipes/:id', async (req, res) => {
     try {
         const recipeId = req.params.id;

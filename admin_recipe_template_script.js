@@ -6,30 +6,29 @@ document.addEventListener('DOMContentLoaded', () => {
     const authorName = document.getElementById('author_name');
     const categoryName = document.getElementById('category_name');
     const recipeImage = document.getElementById('recipe_image');
-    const description = document.getElementById('description')
+    const description = document.getElementById('description');
     const ingredientList = document.getElementById('ingredient_list');
     const directionList = document.getElementById('direction_list');
 
-    const publishButton = document.createElement('button');
-    publishButton.textContent = "Publish";
-    const editButton = document.createElement('button'); // Create the edit button.
-    editButton.textContent = "Edit";
-    const rejectButton = document.createElement('button');
-    rejectButton.textContent = "Reject";
+    const publishButton = createButton("Publish", () => publishRecipe(recipeId));
+    const editButton = createButton("Edit", () => fetchAndEditRecipe());
+    const rejectButton = createButton("Reject", () => rejectRecipe(recipeId));
+
 
     const fetchAndDisplayRecipe = async () => {
         try {
-            const response = await fetch(`http://localhost:3000/admin/recipes`); // Fetch the recipe data
-            if (!response.ok) {
-                const errorMessage = await response.json();
-                throw new Error(errorMessage.message);
+            const response = await fetch(`http://localhost:3000/admin/recipes`);
+             if (!response.ok) {
+                 const errorMessage = await response.json();
+                 throw new Error(errorMessage.message);
             }
-             const recipes = await response.json();
-              const recipe = recipes.find(r => r.id === parseInt(recipeId))
+            const recipes = await response.json();
+            const recipe = recipes.find(r => r.id === parseInt(recipeId));
+
             if (!recipe) {
                 throw new Error('Recipe not found');
             }
-            console.log("Retrieved recipe:", recipe)
+
             recipeTitle.textContent = recipe.title;
             authorName.textContent = `By: ${recipe.author}`;
             categoryName.textContent = `Category: ${recipe.category}`;
@@ -50,14 +49,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 directionList.appendChild(listItem);
             });
 
-            publishButton.addEventListener('click', () => publishRecipe(recipe.id)); // Add listener to handle publishing.
-            editButton.addEventListener('click', () => editRecipe(recipe)); // Added listener for editing
-            rejectButton.addEventListener('click', () => rejectRecipe(recipe.id)); // Add listener to handle publishing.
 
-            const main = document.querySelector('main'); // Append the button to your page.
-            main.appendChild(publishButton);
-            main.appendChild(editButton); // Add the edit button
-            main.appendChild(rejectButton);
+            const main = document.querySelector('main');
+            main.append(publishButton, editButton, rejectButton);
 
 
         } catch (error) {
@@ -65,21 +59,41 @@ document.addEventListener('DOMContentLoaded', () => {
             alert(`Error fetching recipe: ${error.message}`);
         }
     };
-      const editRecipe = (recipe) => {
-        // Construct the URL with the recipe data as URL parameters.
-          const params = new URLSearchParams({
-            id: recipe.id, // Include the recipe ID to identify it during edits.
+   const fetchAndEditRecipe = async () => {
+    try {
+            const response = await fetch(`http://localhost:3000/admin/recipes`);
+             if (!response.ok) {
+                 const errorMessage = await response.json();
+                 throw new Error(errorMessage.message);
+            }
+            const recipes = await response.json();
+            const recipe = recipes.find(r => r.id === parseInt(recipeId));
+           if (!recipe) {
+                throw new Error('Recipe not found');
+           }
+              editRecipe(recipe);
+
+        } catch (error) {
+             console.error('Error fetching recipe:', error);
+             alert(`Error fetching recipe: ${error.message}`);
+        }
+   }
+
+    const editRecipe = (recipe) => {
+        const params = new URLSearchParams({
+            id: recipe.id,
             title: recipe.title,
             author: recipe.author,
             category: recipe.category,
             description: recipe.description,
             ingredients: recipe.ingredients,
             steps: recipe.instructions,
-            imageUrl: recipe.imageUrl // Use absolute path if necessary, check to make sure this works.
+            imageUrl: recipe.imageUrl
         });
 
-       window.location.href = `submit.html?${params.toString()}`; // Redirect to the submit page.
+        window.location.href = `submit.html?${params.toString()}`;
     };
+
     const publishRecipe = async (recipeId) => {
         try {
             const response = await fetch(`http://localhost:3000/admin/publish/${recipeId}`, {
@@ -94,10 +108,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
         } catch (error) {
             console.error('Error publishing recipe:', error);
-             alert(`Error publishing recipe: ${error.message}`);
+            alert(`Error publishing recipe: ${error.message}`);
         }
     };
-     const rejectRecipe = async (recipeId) => {
+
+    const rejectRecipe = async (recipeId) => {
         try {
             const response = await fetch(`http://localhost:3000/admin/recipes/${recipeId}`, {
                 method: 'DELETE'
@@ -110,9 +125,15 @@ document.addEventListener('DOMContentLoaded', () => {
             window.close();
 
         } catch (error) {
-             console.error('Error rejecting recipe:', error);
-              alert(`Error rejecting recipe: ${error.message}`);
+            console.error('Error rejecting recipe:', error);
+            alert(`Error rejecting recipe: ${error.message}`);
         }
     };
+     function createButton(text, onClick) {
+        const button = document.createElement('button');
+        button.textContent = text;
+        button.addEventListener('click', onClick);
+         return button;
+    }
     fetchAndDisplayRecipe();
 });

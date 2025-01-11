@@ -4,8 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const loginContainer = document.getElementById('login-container');
     const errorContainer = document.getElementById('error-container');
     const logoutButton = document.createElement('button');
-    logoutButton.textContent = "Logout"
-
+    logoutButton.textContent = "Logout";
 
     const categoryLists = {
         'Appetizer': document.getElementById('appetizer_recipes_list'),
@@ -18,7 +17,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const clearRecipeLists = () => {
         for (const category in categoryLists) {
-            categoryLists[category].innerHTML = "";
+             if (categoryLists.hasOwnProperty(category) && categoryLists[category]){
+             categoryLists[category].innerHTML = "";
+             }
         }
     };
 
@@ -31,7 +32,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 throw new Error(errorMessage.message);
             }
             const recipes = await response.json();
-            console.log("Retrieved recipes:", recipes);
 
             recipes.forEach(recipe => {
                 const categoryList = categoryLists[recipe.category];
@@ -52,15 +52,26 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-
-    // Check for existing login
-    if (localStorage.getItem('isLoggedIn') === 'true') {
+    const handleLoginSuccess = () => {
+        localStorage.setItem('isLoggedIn', 'true');
         loginContainer.style.display = 'none';
         recipeContainer.style.display = 'block';
         errorContainer.style.display = 'none';
-        const main = document.querySelector('main'); // Append the button to your page.
+        const main = document.querySelector('main');
         main.appendChild(logoutButton);
-        fetchAndDisplayRecipes(); // Fetch data when logged in
+        fetchAndDisplayRecipes();
+    };
+    const handleLogout = () => {
+      localStorage.removeItem('isLoggedIn');
+        loginContainer.style.display = 'block';
+        recipeContainer.style.display = 'none';
+        errorContainer.style.display = 'none';
+        logoutButton.remove();
+    };
+
+    // Check for existing login
+    if (localStorage.getItem('isLoggedIn') === 'true') {
+        handleLoginSuccess();
     }
 
 
@@ -81,13 +92,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const responseData = await response.json();
                 throw new Error(responseData.message);
             }
-            localStorage.setItem('isLoggedIn', 'true'); // Save login
-            loginContainer.style.display = 'none';
-            recipeContainer.style.display = 'block';
-            errorContainer.style.display = 'none';
-            const main = document.querySelector('main'); // Append the button to your page.
-            main.appendChild(logoutButton);
-           fetchAndDisplayRecipes(); // Fetch data after logging in
+           handleLoginSuccess()
         } catch (error) {
             errorContainer.style.display = 'block';
             errorContainer.textContent = `Login error: ${error.message}`;
@@ -95,11 +100,5 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    logoutButton.addEventListener('click', () => {
-        localStorage.removeItem('isLoggedIn');
-        loginContainer.style.display = 'block';
-        recipeContainer.style.display = 'none';
-        errorContainer.style.display = 'none';
-        logoutButton.remove()
-    });
+    logoutButton.addEventListener('click', handleLogout);
 });
