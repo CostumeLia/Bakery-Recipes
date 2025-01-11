@@ -1,9 +1,20 @@
 document.addEventListener('DOMContentLoaded', () => {
     const recipeForm = document.getElementById('recipeForm');
     const recipeContainer = document.getElementById('recipeContainer');
+    const searchBar = document.getElementById('search_bar');
+    const categoryLists = {
+        'Appetizer': document.getElementById('appetizer_recipes_list'),
+        'Entree': document.getElementById('entree_recipes_list'),
+        'Side': document.getElementById('side_recipes_list'),
+        'Dessert': document.getElementById('dessert_recipes_list'),
+        'Drink': document.getElementById('drink_recipes_list'),
+        'Snack': document.getElementById('snack_recipes_list'),
+    };
 
-    if (recipeForm) {
-        recipeForm.addEventListener('submit', async (event) => {
+    let allRecipes = []; // Store all fetched recipes
+   
+       if (recipeForm) {
+           recipeForm.addEventListener('submit', async (event) => {
             event.preventDefault();
             const formData = new FormData(recipeForm);
            
@@ -37,8 +48,8 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
-
-     function displayRecipe(recipe, container) {
+    
+    function displayRecipe(recipe, container) {
          if (!recipe) {
             console.error("Recipe data is undefined in displayRecipe");
             return;
@@ -70,16 +81,7 @@ document.addEventListener('DOMContentLoaded', () => {
         container.appendChild(recipeDiv);
     }
 
-    const categoryLists = {
-        'Appetizer': document.getElementById('appetizer_recipes_list'),
-        'Entree': document.getElementById('entree_recipes_list'),
-        'Side': document.getElementById('side_recipes_list'),
-        'Dessert': document.getElementById('dessert_recipes_list'),
-        'Drink': document.getElementById('drink_recipes_list'),
-        'Snack': document.getElementById('snack_recipes_list'),
-    };
-
-   const fetchAndDisplayRecipes = async () => {
+    const fetchAndDisplayRecipes = async () => {
         try {
             const response = await fetch('http://localhost:3000/recipes');
 
@@ -87,12 +89,28 @@ document.addEventListener('DOMContentLoaded', () => {
                 const errorMessage = await response.json();
                 throw new Error(errorMessage.message);
             }
+             
+            allRecipes = await response.json();
+           
 
-            const recipes = await response.json();
-            console.log("Retrieved recipes:", recipes);
+            displayRecipes(allRecipes)
 
+        } catch (error) {
+            console.error('Error fetching recipes:', error);
+            alert(`Error fetching recipes: ${error.message}`);
+        }
+    };
+
+       const displayRecipes = (recipes) => {
+        // Clear existing lists
+           for (const key in categoryLists) {
+            if (categoryLists.hasOwnProperty(key)) {
+                categoryLists[key].innerHTML = '';
+             }
+        }
+        
             recipes.forEach(recipe => {
-                const categoryList = categoryLists[recipe.category];
+            const categoryList = categoryLists[recipe.category];
                 if (categoryList) {
                     const listItem = document.createElement('li');
                     const link = document.createElement('a');
@@ -103,14 +121,33 @@ document.addEventListener('DOMContentLoaded', () => {
                     categoryList.appendChild(listItem);
                  }
             });
+    }
 
-        } catch (error) {
-            console.error('Error fetching recipes:', error);
-            alert(`Error fetching recipes: ${error.message}`);
+     const filterRecipes = (searchTerm) => {
+        if (!searchTerm) {
+            displayRecipes(allRecipes); // Show all if search is empty
+            return;
         }
-    };
+        const lowerSearchTerm = searchTerm.toLowerCase();
 
-    const addRecipeToPage = (recipe) => {
+        const filtered = allRecipes.filter(recipe => {
+                return (
+                    recipe.title.toLowerCase().includes(lowerSearchTerm) ||
+                    recipe.author.toLowerCase().includes(lowerSearchTerm) ||
+                    recipe.description.toLowerCase().includes(lowerSearchTerm) ||
+                    recipe.ingredients.toLowerCase().includes(lowerSearchTerm)
+                    )
+        });
+        displayRecipes(filtered);
+     };
+
+      if (searchBar){
+       searchBar.addEventListener('input', (event) => {
+           filterRecipes(event.target.value);
+       });
+     }
+
+   const addRecipeToPage = (recipe) => {
         if (!recipe) {
             console.error("Recipe data is undefined in addRecipeToPage");
             return;
