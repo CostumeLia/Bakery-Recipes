@@ -122,7 +122,7 @@ document.addEventListener('DOMContentLoaded', () => {
         recipeDiv.classList.add('recipe');
         recipeDiv.innerHTML = `
             <div id="intro">
-                <h3>${convertNumbersToSpan(recipe.title)}</h3>
+                <h3>${recipe.title}</h3>
                 <h4>${recipe.author}</h4>
                 <p>${recipe.category}</p>
                 <img src="${recipe.imageUrl ? recipe.imageUrl : '/img/recipe_placeholder.jfif'}" alt="Image of Recipe" style="max-width: 200px"/>
@@ -131,13 +131,13 @@ document.addEventListener('DOMContentLoaded', () => {
            <div id="ingredients">
                 <h5>Ingredients</h5>
                 <ul>
-                    ${recipe.ingredients ? recipe.ingredients.split('\n').map(ingredient => `<li>${convertNumbersToSpan(ingredient)}</li>`).join('') : ''}
+                    ${recipe.ingredients ? recipe.ingredients.split('\n').map(ingredient => `<li>${ingredient}</li>`).join('') : ''}
                 </ul>
             </div>
             <div id="steps">
                 <h5>Directions</h5>
                 <ol>
-                    ${recipe.instructions ? recipe.instructions.split('\n').map(step => `<li>${convertNumbersToSpan(step)}</li>`).join('') : ''}
+                    ${recipe.instructions ? recipe.instructions.split('\n').map(step => `<li>${step}</li>`).join('') : ''}
                 </ol>
             </div>
         `;
@@ -145,22 +145,6 @@ document.addEventListener('DOMContentLoaded', () => {
         container.appendChild(recipeDiv);
     }
 
-     function convertNumbersToSpan(text) {
-        if (!text) {
-           return text;
-       }
-        const tempDiv = document.createElement('div');
-        tempDiv.innerHTML = text;
-    
-        const walker = document.createTreeWalker(tempDiv, NodeFilter.SHOW_TEXT, null, false);
-    
-        let node;
-         while (node = walker.nextNode()) {
-            let newHTML = node.textContent.replace(/(\d+)/g, '<span>$1</span>')
-            node.parentElement.innerHTML = newHTML
-        }
-       return tempDiv.innerHTML;
-    }
     
     const fetchAndDisplayRecipes = async () => {
         try {
@@ -194,7 +178,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const link = document.createElement('a');
                 link.href = `recipe_template.html?title=${encodeURIComponent(recipe.title)}`;
                 link.target = "_blank";
-                link.innerHTML = convertNumbersToSpan(recipe.title);
+                link.textContent = recipe.title
                 listItem.appendChild(link);
                 categoryList.appendChild(listItem);
             }
@@ -231,7 +215,7 @@ document.addEventListener('DOMContentLoaded', () => {
         recipeDiv.id = `${recipe.title.replace(/ /g, '_')}`;
         recipeDiv.innerHTML = `
              <div id="intro">
-                  <h3>${convertNumbersToSpan(recipe.title)}</h3>
+                  <h3>${recipe.title}</h3>
                   <h4>${recipe.author}</h4>
                   <p>${recipe.category}</p>
                   <img src="${recipe.imageUrl ? recipe.imageUrl : '/img/recipe_placeholder.jfif'}" alt="Image of Recipe" style="max-width: 200px"/>
@@ -241,14 +225,14 @@ document.addEventListener('DOMContentLoaded', () => {
               <div id="ingredients">
                   <h5>Ingredients</h5>
                    <ul>
-                     ${recipe.ingredients ? recipe.ingredients.split('\n').map(ingredient => `<li>${convertNumbersToSpan(ingredient)}</li>`).join('') : ''}
+                     ${recipe.ingredients ? recipe.ingredients.split('\n').map(ingredient => `<li>${ingredient}</li>`).join('') : ''}
                   </ul>
               </div>
     
               <div id="steps">
                   <h5>Directions</h5>
                   <ol>
-                       ${recipe.instructions ? recipe.instructions.split('\n').map(step => `<li>${convertNumbersToSpan(step)}</li>`).join('') : ''}
+                       ${recipe.instructions ? recipe.instructions.split('\n').map(step => `<li>${step}</li>`).join('') : ''}
                   </ol>
               </div>
           `;

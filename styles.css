@@ -2,27 +2,31 @@
 @font-face {
     font-family: feelingPassionate;
     src: url('Fonts/Feeling Passionate.otf');
-}
-@font-face {
+   }
+   @font-face {
     font-family: architectDaughter;
     src: url('Fonts/ArchitectsDaughter.ttf');
-}
-
-/* 
+   }
+   
+   /* 
     ----------------------
-        General Styles
+        Root Styles and Variables
     ----------------------
-*/
-
-/* Root Styles for setting the base color*/
-:root {
+   */
+   :root {
     --primary-background-color: rgb(57, 93, 187);
     --primary-text-color: rgb(216, 230, 255);
     --secondary-text-color: rgb(18, 30, 46);
-  }
-
-body {
-    /* Use variables instead of hardcoding colors */
+    --font-architect: architectDaughter, Verdana, Geneva, Tahoma, sans-serif;
+    --font-passionate: feelingPassionate, Verdana, Geneva, Tahoma, sans-serif;
+   }
+   
+   /* 
+    ----------------------
+        General Styles
+    ----------------------
+   */
+   body {
     background-image: url('img/blue_roses_placeholder.jfif');
     text-align: center;
     background-attachment: fixed;
@@ -31,200 +35,182 @@ body {
     max-width: 100%;
     display: block;
     font-size: 1vw;
-}
-
-/* Reusable styles for main sections */
-.section {
+   }
+   
+   
+   /* Reusable section styles*/
+   header, main, footer {
     background-color: var(--primary-background-color);
     padding: 15px;
     border-radius: 20px;
     margin: 15px auto;
     max-width: 90%;
     display: block;
-}
-
-/*  ----------------------
-        Header
+   }
+   
+   /*  ----------------------
+        Header Styles
     ----------------------
-*/
-header {
-    /* Applies all the styles from the reusable section class*/
-    /* Specific styles for the header*/
+   */
+   
+   header {
     color: var(--primary-text-color);
-}
-header, main, footer {
-    background-color: var(--primary-background-color);
-    padding: 15px;
-    border-radius: 20px;
-    margin: 15px auto;
-    max-width: 90%;
-    display: block;
-}
-
-
-h1{
-    font-family: feelingPassionate, Verdana, Geneva, Tahoma, sans-serif;
+   }
+   
+   h1{
+    font-family: var(--font-passionate);
     font-size: 7em;
     line-height: 25%;
     inline-size: 100%;
     max-width: 90%;
     font-weight: lighter;
-}
-
-h2 {
+   }
+   
+   h2 {
     font-size: 6em;
     line-height: 25px;
-    font-family: feelingPassionate, Verdana, Geneva, Tahoma, sans-serif;
+    font-family: var(--font-passionate);
     font-weight: lighter;
     color: var(--primary-text-color);
-}
-
-img {
+   }
+   
+   img {
     max-width: 100%;
     border: var(--primary-text-color) 5px solid; 
     border-radius: 20px;
-}
-
-/*  ----------------------
-        Main
+   }
+   
+   /*  ----------------------
+        Main Styles
     ----------------------
-*/
-main {
-    /* Specific styles for the main*/
-    font-family: architectDaughter, Verdana, Geneva, Tahoma, sans-serif;
+   */
+   main {
+    font-family: var(--font-architect);
     font-weight: lighter;
-    margin-top: 10px; /* override section's margin, move it slightly up */
-}
-main ul {
+    margin-top: 10px;
+   }
+   main ul {
     text-decoration: none;
-}
-/*  ----------------------
-        Footer
+   }
+   /*  ----------------------
+        Footer Styles
     ----------------------
-*/
-footer {
-    /* Specific styles for the footer*/
+   */
+   footer {
     color: var(--primary-text-color);
-    font-family: architectDaughter, Verdana, Geneva, Tahoma, sans-serif;
+    font-family: var(--font-architect);
     font-weight: lighter;
     font-size: small;
-}
-
-/*  ----------------------
-        Typography
+   }
+   
+   /*  ----------------------
+        Typography Styles
     ----------------------
-*/
-
-h3 {
+   */
+   
+   h3 {
     color: var(--primary-text-color);
     font-size: 4em;
     line-height: 10px;
     font-weight: lighter;
-}
-
-
-h4 {
+   }
+   
+   
+   h4 {
     color: var(--primary-text-color);
     font-size: 1.75em;
     font-weight: lighter;
-}
-
-h5 {
+   }
+   
+   h5 {
     font-size: 1em;
     text-align: center;
     font-weight: lighter;
-}
-
-p {
+   }
+   
+   p {
     color: var(--primary-text-color);
     font-weight: lighter;
-}
-
-/*  ----------------------
-        Lists
+   }
+   
+   /*  ----------------------
+        List Styles
     ----------------------
-*/
-ul {
+   */
+   ul {
     list-style-type: none;
-}
-
-.ingredients_list ul {
-  list-style-type: disc;
-  }
-  
-#all_recipes_list, #favorites {
+   }
+   
+   .ingredients_list ul {
+   list-style-type: disc;
+   }
+   
+   #all_recipes_list, #favorites {
     padding: 0;
     margin: 0;
     color: var(--primary-text-color);
     font-size: 1.75em;
-}
-
-/*  ----------------------
-        Form Elements
+   }
+   
+   /*  ----------------------
+        Form Element Styles
     ----------------------
-*/
-
-#ingredients, #directions, #recipe_description, #category, #recipeImage, #recipe_name, #your_name, #search_bar {
+   */
+   
+   #ingredients, #directions, #recipe_description, #category, #recipeImage, #recipe_name, #your_name, #search_bar {
     background-color: var(--primary-text-color);
     padding: 5px;
     border-radius: 20px;
     margin: 10px auto;
     color: var(--secondary-text-color);
     text-align: left;
-    font-family: architectDaughter, Verdana, Geneva, Tahoma, sans-serif;
+    font-family: var(--font-architect);
     font-weight: lighter;
     font-size: 1em;
-}
-
-#recipe_name, #your_name, #recipeImage, #search_bar {
+   }
+   
+   #recipe_name, #your_name, #recipeImage, #search_bar {
     border-radius: 10px;
-}
-
-#ingredients, #directions, #recipe_description {
+   }
+   
+   #ingredients, #directions, #recipe_description {
     width: 60%;
-}
-
-#search_bar, #recipeImage {
+   }
+   
+   #search_bar, #recipeImage {
     width: 60%;
-}
-
-
-input::file-selector-button {
+   }
+   
+   input::file-selector-button {
     display: none;
-}
-
-::placeholder, option {
+   }
+   
+   ::placeholder, option {
     color: var(--secondary-text-color);
-  }
-
-form{
+   }
+   
+   form{
     color: var(--primary-text-color);
-}
-
-/*  ----------------------
-        Links
+   }
+   
+   /*  ----------------------
+        Link Styles
     ----------------------
-*/
-
-a:link {
+   */
+   a:link, a:visited {
     color: var(--primary-text-color);
-}
-
-a:visited {
-    color: var(--primary-text-color);
-}
-
-a:hover {
+   }
+   
+   a:hover {
     color: var(--secondary-text-color);
-}
-
-/*  ----------------------
-        Buttons
+   }
+   
+   /*  ----------------------
+        Button Styles
     ----------------------
-*/
-
-button, #footer_button {
-    /* Apply common styles here*/
+   */
+   
+   button, #footer_button {
     border: 5px solid var(--secondary-text-color);
     color: var(--primary-text-color);
     background-color: var(--secondary-text-color);
@@ -234,22 +220,22 @@ button, #footer_button {
     text-decoration: none;
     font-size: 16px;
     margin: 4px 2px;
-    font-family: architectDaughter, Verdana, Geneva, Tahoma, sans-serif;
+    font-family: var(--font-architect);
     font-weight: lighter;
-}
-
-button:hover, #footer_button:hover {
-    /* Apply common hover styles here */
-    border: 5px solid var(--secondary-text-color);
+   }
+   
+   
+   button:hover, #footer_button:hover {
+   border: 5px solid var(--secondary-text-color);
     color: var(--secondary-text-color);
     background-color: var(--primary-text-color);
-}
-
-/*  ----------------------
-        Navigation
+   }
+   
+   /*  ----------------------
+        Navigation Styles
     ----------------------
-*/
-nav {
+   */
+   nav {
     position: sticky;
     top: 5px;
     float: right;
@@ -257,9 +243,9 @@ nav {
     margin-right: 5%;
     max-width: 30%;
     display: block;
-}
-
-nav ul {
+   }
+   
+   nav ul {
     border: 5px solid var(--secondary-text-color);
     color: var(--secondary-text-color);
     background-color: var(--primary-text-color);
@@ -267,49 +253,48 @@ nav ul {
     padding: 0px;
     text-decoration: none;
     font-size: medium;
-    font-family: architectDaughter, Verdana, Geneva, Tahoma, sans-serif;
+    font-family: var(--font-architect);
     font-weight: lighter;
     text-align: center;
     list-style-type: none;
     background-clip: padding-box;
-}
-
-nav li {
+   }
+   
+   nav li {
     border: 1px solid var(--secondary-text-color);
     padding: 5px;
-}
-
-nav a:link, nav a:visited {
+   }
+   
+   nav a:link, nav a:visited {
     text-decoration: none;
     color: var(--secondary-text-color);
-}
-
-#nav a:hover {
+   }
+   
+   nav a:hover {
     background-color: var(--primary-background-color);
     background-clip: padding-box;
     color: var(--primary-text-color);
     display: block;
     border-radius: 5px;
-}
-
-#nav .active { 
+   }
+   
+   nav .active { 
     background-color: var(--secondary-text-color);
     background-clip: padding-box;
     color: var(--primary-text-color);
     display: block;
     border-radius: 5px;
     padding: 5px;
-}
-
-
-/*  ----------------------
-      Footer Button
+   }
+   
+   
+   /*  ----------------------
+      Footer Button Styles
     ----------------------
-*/
-
-
-#footer_button {
-     /* Specific styles for footer button that override button*/
+   */
+   
+   
+   #footer_button {
     display: block;
     font-size: small;
     margin: 0;
@@ -317,4 +302,4 @@ nav a:link, nav a:visited {
     position: sticky;
     bottom: 5px;
     float: right;
-}
+   }
