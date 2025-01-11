@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const recipeContainer = document.getElementById('recipeContainer');
     const searchBar = document.getElementById('search_bar');
     const categoryLists = {
-        'Appetizer': document.getElementById('appetizer_recipes_list'),
+        'Baked Goods': document.getElementById('baked_recipes_list'),
         'Entree': document.getElementById('entree_recipes_list'),
         'Side': document.getElementById('side_recipes_list'),
         'Dessert': document.getElementById('dessert_recipes_list'),
@@ -145,7 +145,7 @@ document.addEventListener('DOMContentLoaded', () => {
         container.appendChild(recipeDiv);
     }
 
-    
+
     const fetchAndDisplayRecipes = async () => {
         try {
             const response = await fetch('http://localhost:3000/recipes');
@@ -193,9 +193,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const lowerSearchTerm = searchTerm.toLowerCase();
 
         const filtered = allRecipes.filter(recipe =>
-                Object.values(recipe).some(value => typeof value === 'string' && value.toLowerCase().includes(lowerSearchTerm))
-            );
-         displayRecipes(filtered);
+            Object.values(recipe).some(value => typeof value === 'string' && value.toLowerCase().includes(lowerSearchTerm))
+        );
+        displayRecipes(filtered);
     };
 
     if (searchBar) {
@@ -240,7 +240,7 @@ document.addEventListener('DOMContentLoaded', () => {
         recipeContainer.appendChild(recipeDiv);
     };
 
-    if (document.getElementById('appetizer_recipes_list') || document.getElementById('entree_recipes_list') || document.getElementById('side_recipes_list') || document.getElementById('dessert_recipes_list') || document.getElementById('drink_recipes_list') || document.getElementById('snack_recipes_list')) {
+    if (document.getElementById('baked_recipes_list') || document.getElementById('entree_recipes_list') || document.getElementById('side_recipes_list') || document.getElementById('dessert_recipes_list') || document.getElementById('drink_recipes_list') || document.getElementById('snack_recipes_list')) {
         fetchAndDisplayRecipes();
     }
 });

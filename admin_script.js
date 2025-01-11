@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
     logoutButton.textContent = "Logout";
 
     const categoryLists = {
-        'Appetizer': document.getElementById('appetizer_recipes_list'),
+        'Baked Goods': document.getElementById('baked_recipes_list'),
         'Entree': document.getElementById('entree_recipes_list'),
         'Side': document.getElementById('side_recipes_list'),
         'Dessert': document.getElementById('dessert_recipes_list'),
