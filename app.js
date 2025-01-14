@@ -59,6 +59,7 @@ const Recipe = sequelize.define('Recipe', {
         type: Sequelize.BOOLEAN,
         defaultValue: false,
     },
+   createdAt: Sequelize.DATE,
 }, {
     tableName: 'Recipes'
 });
@@ -96,7 +97,8 @@ app.get('/recipes', async (req, res) => {
             description: recipe.description,
             ingredients: recipe.ingredients,
             instructions: recipe.steps,
-            imageUrl: recipe.imageUrl
+            imageUrl: recipe.imageUrl,
+             createdAt: recipe.createdAt
         })));
     } catch (error) {
         console.error('Error fetching recipes:', error);
@@ -176,7 +178,8 @@ app.post('/recipes', upload.single('recipeImage'), async (req, res) => {
                 description,
                 ingredients,
                 steps,
-                imageUrl
+                imageUrl,
+                createdAt: new Date()
             });
             res.status(201).json({
                 success: true,

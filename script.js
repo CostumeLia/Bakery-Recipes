@@ -152,20 +152,39 @@ document.addEventListener('DOMContentLoaded', () => {
     const fetchAndDisplayRecipes = async () => {
         try {
             const response = await fetch('http://localhost:3000/recipes');
-
+    
             if (!response.ok) {
                 const errorMessage = await response.json();
                 throw new Error(errorMessage.message);
             }
-
+    
             allRecipes = await response.json();
+             if (document.querySelector('main').closest('html').id === 'index-html'){
+                filterAndDisplayNewRecipes(allRecipes);
+             }
+    
             displayRecipes(allRecipes);
-
+    
         } catch (error) {
             console.error('Error fetching recipes:', error);
             alert(`Error fetching recipes: ${error.message}`);
         }
     };
+
+    const filterAndDisplayNewRecipes = (recipes) => {
+        const cutoffDate = new Date('2025-03-01T00:00:00'); // March 1, 2025
+       
+        const filteredRecipes = recipes.filter(recipe => {
+            if (!recipe.createdAt) {
+                return false
+            }
+            const recipeDate = new Date(recipe.createdAt);
+            return recipeDate > cutoffDate;
+        });
+        displayNewRecipes(filteredRecipes);
+
+    }
+
 
     const displayRecipes = (recipes) => {
         for (const key in categoryLists) {
@@ -188,6 +207,28 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
 
+
+     const displayNewRecipes = (recipes) => {
+        const newRecipesDiv = document.getElementById('new-recipes');
+        const newRecipesList = document.getElementById('new_recipes_list');
+
+         newRecipesList.innerHTML= '';
+
+          if (recipes && recipes.length > 0) {
+              newRecipesDiv.style.display = 'block';
+              recipes.forEach(recipe => {
+                   const listItem = document.createElement('li');
+                   const link = document.createElement('a');
+                   link.href = `recipe_template.html?title=${encodeURIComponent(recipe.title)}`;
+                   link.target = "_blank";
+                   link.textContent = recipe.title;
+                   listItem.appendChild(link);
+                  newRecipesList.appendChild(listItem);
+               });
+            }else {
+             newRecipesDiv.style.display = 'none';
+         }
+    };
     const filterRecipes = (searchTerm) => {
         if (!searchTerm) {
             displayRecipes(allRecipes);
@@ -243,7 +284,7 @@ document.addEventListener('DOMContentLoaded', () => {
         recipeContainer.appendChild(recipeDiv);
     };
 
-    if (document.getElementById('baked_recipes_list') || document.getElementById('entree_recipes_list') || document.getElementById('side_recipes_list') || document.getElementById('dessert_recipes_list') || document.getElementById('drink_recipes_list') || document.getElementById('snack_recipes_list')) {
+    if (document.getElementById('baked_recipes_list') || document.getElementById('entree_recipes_list') || document.getElementById('side_recipes_list') || document.getElementById('dessert_recipes_list') || document.getElementById('drink_recipes_list') || document.getElementById('snack_recipes_list') || document.getElementById('new_recipes_list')) {
         fetchAndDisplayRecipes();
     }
 });

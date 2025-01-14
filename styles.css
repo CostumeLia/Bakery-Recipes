@@ -187,6 +187,7 @@ input::file-selector-button {
 
 ::placeholder, option {
     color: var(--secondary-text-color);
+    text-align: center;
   }
 
 form{
